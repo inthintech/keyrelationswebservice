@@ -46,7 +46,7 @@ class Ytm extends CI_Controller {
 		if($result){
 			
 				array_push($output,array(
-					'success'=>'New movie added';
+					'success'=>'New movie added'
 				));
 			
 		}	
