@@ -2,31 +2,39 @@
 
 class Ytm extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -  
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in 
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
 	public function index()
 	{
 		show_404();
 	}
 	
+	public function __construct()
+    {
+      	parent::__construct();
+        // Your own constructor code
+        $this->load->model('ytmdata','',TRUE);
+        $this->load->database();
+    }
+	
 	public function getgenrelist()
 	{
-		echo 'Hi';
-	}
-}
+		$this->output->set_content_type('application/json');
+		$output = array();
+		$result = $this->ytmdata->returnGenre();
+		if($result){
+			foreach($result as $row)
+			{
+				array_push($output,array(
+					'id'=>$row->id,
+					'name'=>$row->name,
+				));
 
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
+			}
+		}	
+		else {
+			$this->output->set_status_header('503');
+			exit;
+		}
+		$this->output->set_output(json_encode($output));
+	
+	}	
+}
