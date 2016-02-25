@@ -15,11 +15,11 @@ class Ytm extends CI_Controller {
         $this->load->database();
     }
 	
-	public function getgenrelist()
+	public function getFilterData($type)
 	{
 		$this->output->set_content_type('application/json');
 		$output = array();
-		$result = $this->ytmdata->returnGenre();
+		$result = $this->ytmdata->returnFilterData($type);
 		if($result){
 			foreach($result as $row)
 			{
@@ -29,6 +29,26 @@ class Ytm extends CI_Controller {
 				));
 
 			}
+		}	
+		else {
+			$this->output->set_status_header('503');
+			exit;
+		}
+		$this->output->set_output(json_encode($output));
+	
+	}
+	
+	public function putNewMovie($name,$year,$link,$actor,$actress,$director,$genre,$language)
+	{
+		$this->output->set_content_type('application/json');
+		$output = array();
+		$result = $this->ytmdata->insertNewMovie($name,$year,$link,$actor,$actress,$director,$genre,$language);
+		if($result){
+			
+				array_push($output,array(
+					'success'=>'New movie added';
+				));
+			
 		}	
 		else {
 			$this->output->set_status_header('503');
