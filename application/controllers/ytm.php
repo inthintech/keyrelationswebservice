@@ -68,7 +68,7 @@ class Ytm extends CI_Controller {
 	{
 		$this->output->set_content_type('application/json');
 		$output = array();
-		$result = $this->ytmdata->insertNewMovie($name,$year,$link,$actor,$actress,$director,$genre,$language);
+		$result = $this->ytmdata->insertNewMovie(urldecode($name),$year,$link,$actor,$actress,$director,$genre,$language);
 		if($result){
 			
 				array_push($output,array(

@@ -103,7 +103,7 @@ order by b.release_year");
     public function insertNewMovie($name,$year,$link,$actor,$actress,$director,$genre,$language)
     {
         
-        $query = $this->db->query("insert into ytm_movie(movie_name,release_year_id,youtube_link,male_lead_id,female_lead_id,director_id,genre_id,actv_f,crte_ts,language_id) values('" .urldecode($name)."',".$year.",'".$link."',".$actor.",".$actress.",".$director.",".$genre.",'Y',current_timestamp,".$language.")");
+        $query = $this->db->query("insert into ytm_movie(movie_name,release_year_id,youtube_link,male_lead_id,female_lead_id,director_id,genre_id,actv_f,crte_ts,language_id) values('".$name."',".$year.",'".$link."',".$actor.",".$actress.",".$director.",".$genre.",'Y',current_timestamp,".$language.")");
         
         if($query)
        {
