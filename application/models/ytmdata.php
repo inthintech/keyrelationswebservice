@@ -41,6 +41,65 @@ Class Ytmdata extends CI_Model
        }
     }
     
+    public function returnFilterList($type,$lang)
+    {
+        switch($type){
+			case 1://genre
+				 $query = $this->db->query("select b.genre_id id,b.genre_name name,count(1) cnt from ytm_movie a
+join ytm_genre b
+on a.genre_id=b.genre_id
+where a.language_id=".$lang." group by b.genre_id,b.genre_name
+order by b.genre_name");
+				break;
+			case 2://actor
+				$query = $this->db->query("select b.male_lead_id id,b.male_lead_name name,count(1) cnt from ytm_movie a
+join ytm_male_lead b
+on a.male_lead_id=b.male_lead_id
+where a.language_id=".$lang."
+group by b.male_lead_id,b.male_lead_name
+order by b.male_lead_name");
+				break;
+			case 3://actress
+				$query = $this->db->query("select b.female_lead_id id,b.female_lead_name name,count(1) cnt from ytm_movie a
+join ytm_female_lead b
+on a.female_lead_id=b.female_lead_id
+where a.language_id=".$lang."
+group by b.female_lead_id,b.female_lead_name
+order by b.female_lead_name");
+				break;
+			case 4://director
+				$query = $this->db->query("select b.director_id id,b.director_name name,count(1) cnt from ytm_movie a
+join ytm_director b
+on a.director_id=b.director_id
+where a.language_id=".$lang."
+group by b.director_id,b.director_name
+order by b.director_name");
+				break;
+			case 5://release year
+				$query = $this->db->query("select b.release_year_id id,b.release_year name,count(1) cnt from ytm_movie a
+join ytm_release_year b
+on a.release_year_id=b.release_year_id
+where a.language_id=".$lang."
+group by b.release_year_id,b.release_year
+order by b.release_year");
+				break;
+            default :
+                show_404();
+                exit;
+			
+		}
+       
+        if($query)
+       {
+          return $query->result();
+       }
+       else
+       {
+          return false;
+          
+       }
+    }
+    
     public function insertNewMovie($name,$year,$link,$actor,$actress,$director,$genre,$language)
     {
         

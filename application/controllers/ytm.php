@@ -15,6 +15,7 @@ class Ytm extends CI_Controller {
         $this->load->database();
     }
 	
+	// do not use language parameters since the cast and director are aplicable for all language.
 	public function getFilterData($type)
 	{
 		$this->output->set_content_type('application/json');
@@ -26,6 +27,31 @@ class Ytm extends CI_Controller {
 				array_push($output,array(
 					'id'=>$row->id,
 					'name'=>$row->name,
+				));
+
+			}
+		}	
+		else {
+			$this->output->set_status_header('503');
+			exit;
+		}
+		$this->output->set_output(json_encode($output));
+	
+	}
+	
+	//use language filter
+	public function getFilterList($type,$lang)
+	{
+		$this->output->set_content_type('application/json');
+		$output = array();
+		$result = $this->ytmdata->returnFilterList($type,$lang);
+		if($result){
+			foreach($result as $row)
+			{
+				array_push($output,array(
+					'id'=>$row->id,
+					'name'=>$row->name,
+					'count'=>$row->cnt
 				));
 
 			}
