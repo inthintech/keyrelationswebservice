@@ -38,7 +38,7 @@ class Smsm extends CI_Controller {
 			//if the movie does not exist in db
 			
 			$service_url = 'https://api.themoviedb.org/3/movie/'.$movieId.'?api_key='.$this->tmdbApiKey;
-			echo $service_url;
+			//echo $service_url;
 
 			//make the api call and store the response
 			$curl = curl_init($service_url);
