@@ -17,7 +17,7 @@ class Smsm extends CI_Controller {
     }
 	
 	// do not use language parameters since the cast and director are aplicable for all language.
-	public function addMovie($movName)
+	public function addMovie($movieId)
 	{
 		
 		
