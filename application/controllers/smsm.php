@@ -21,10 +21,10 @@ class Smsm extends CI_Controller {
 	{
 		
 		
-		//$this->output->set_content_type('application/json');
+		$this->output->set_content_type('application/json');
 		
 		
-		/*
+		
 		$output = array();
 		
 		//check if movie exists in db
@@ -66,6 +66,8 @@ class Smsm extends CI_Controller {
 					$this->smsmdata->updateMovieGenreData($decoded->id,$decoded->genres[$j]->id);
 					
 				}
+			
+		}
 				
 			array_push($output,array(
 					'success'=>'New movie added'
@@ -73,52 +75,5 @@ class Smsm extends CI_Controller {
 			
 			$this->output->set_output(json_encode($output));
 			
-			}
-			*/
-		
-		
-		
-		
-		$service_url = 'https://api.themoviedb.org/3/search/movie?api_key='.$this->tmdbApiKey.'&query='.$movName.'&page=1';
-
-		//make the api call and store the response
-		$curl = curl_init($service_url);
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-		$curl_response = curl_exec($curl);
-		
-		//if the api call is failed
-		if ($curl_response === false) {
-		    //$info = curl_getinfo($curl);
-		    curl_close($curl);
-		    //die('error occured during curl exec. Additioanl info: ' . var_export($info));
-		    echo json_encode(array('error'=>'unable to get information from moviedb server'));
-		    $this->db->close();
-		    exit;
-
-		}
-		curl_close($curl);
-		$decoded = json_decode($curl_response);
-
-		$output = array();
-
-		for($i=0;$i<count($decoded->results);$i++)
-		{
-			array_push($output,array('id'=>$decoded->results[$i]->id,
-			'title'=>$decoded->results[$i]->title,
-			'overview'=>$decoded->results[$i]->overview,
-			'poster_path'=>$decoded->results[$i]->poster_path,
-			//'poster_path'=>'',
-			'release_date'=>$decoded->results[$i]->release_date));
-		}
-
-		//echo json_encode($output);
-		echo json_encode(array('output'=>$output));
-		$this->db->close();
-		exit;
-		
-		
-			
-		
-		
 	}
 }
