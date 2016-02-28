@@ -55,7 +55,7 @@ class Smsm extends CI_Controller {
 			curl_close($curl);
 			$decoded = json_decode($curl_response);
 			
-			$this->smsmdata->updateMovieData($decoded->id,$decoded->title,$decoded->poster_path,$decoded->backdrop_path,$decoded->release_date);
+			$this->smsmdata->updateMovieData($decoded->id,$decoded->title,$decoded->poster_path,$decoded->release_date);
 			
 			for($j=0;$j<count($decoded->genres);$j++)
 				{
