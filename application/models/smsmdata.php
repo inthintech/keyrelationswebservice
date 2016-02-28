@@ -22,7 +22,7 @@ Class Smsmdata extends CI_Model
 	public function returnUserData($fbId)
     {
         
-		$query = $this->db->query("select user_id from smsm_user where fb_id=".$fbId);
+		$query = $this->db->query("select user_id from smsm_user where fb_id='".$fbId."'");
 				
         if($query->num_rows()>=1)
        {
@@ -37,7 +37,7 @@ Class Smsmdata extends CI_Model
 	
 	public function updateUserData($fbId)
     {
-		$query = $this->db->query("insert into smsm_user(fb_id) values(".$fbId.")");
+		$query = $this->db->query("insert into smsm_user(fb_id) values('".$fbId."')");
 	}
 	
 	public function updateMovieData($movieId,$name,$img,$backimg,$year)
