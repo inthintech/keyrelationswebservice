@@ -38,6 +38,17 @@ Class Smsmdata extends CI_Model
 	public function updateUserData($fbId)
     {
 		$query = $this->db->query("insert into smsm_user(fb_id) values('".$fbId."')");
+		
+		if($query)
+       {
+          return true;
+       }
+       else
+       {
+          return false;
+          
+       }
+		
 	}
 	
 	public function updateMovieData($movieId,$name,$img,$backimg,$year)
