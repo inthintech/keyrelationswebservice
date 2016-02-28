@@ -22,9 +22,6 @@ class Smsm extends CI_Controller {
 		
 		
 		$this->output->set_content_type('application/json');
-		
-		
-		
 		$output = array();
 		
 		//check if movie exists in db
@@ -76,4 +73,48 @@ class Smsm extends CI_Controller {
 			$this->output->set_output(json_encode($output));
 			
 	}
+	
+	public function userRegistration($fbId)
+	{
+		
+		
+		$this->output->set_content_type('application/json');
+		$output = array();
+		
+		//check if user exists in db
+		if($this->smsmdata->returnUserData($fbId)==true){
+			
+			// if the user exist in db
+			
+			array_push($output,array(
+					'success'=>'User successfully registered'
+				));
+			
+		}
+		else{
+			$result = this->smsmdata->updateUserData($fbId);
+		
+			
+			if($result){
+				array_push($output,array(
+					'success'=>'User successfully registered'
+				));
+			}
+			else{
+				array_push($output,array(
+					'error'=>'Unable to register user'
+				));
+				$this->output->set_status_header('503');
+			}
+		}
+			
+			$this->output->set_output(json_encode($output));
+			
+	}
+	
+	
+	
+	
 }
+
+
