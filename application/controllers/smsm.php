@@ -92,7 +92,7 @@ class Smsm extends CI_Controller {
 			
 		}
 		else{
-			$result = this->smsmdata->updateUserData($fbId);
+			$result = $this->smsmdata->updateUserData($fbId);
 		
 			
 			if($result){
