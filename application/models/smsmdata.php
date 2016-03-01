@@ -35,6 +35,23 @@ Class Smsmdata extends CI_Model
        }
     }
 	
+	public function returnUserId($fbId)
+    {
+        
+		$query = $this->db->query("select user_id from smsm_user where fb_id='".$fbId."'");
+				
+        $esult = $query->result();
+		
+		$userId = 0;
+		
+		foreach($result as $row)
+			{
+				$userId = $row->user_id;
+			}
+			
+		return $userId;
+    }
+	
 	public function updateUserData($fbId)
     {
 		$query = $this->db->query("insert into smsm_user(fb_id) values('".$fbId."')");
@@ -54,6 +71,11 @@ Class Smsmdata extends CI_Model
 	public function updateMovieData($movieId,$name,$img,$year)
     {
 		$query = $this->db->query("insert into smsm_movie(tmdb_movie_id,movie_name,movie_poster_image,release_year) values(".$movieId.",'".$name."','".$img."','".$year."')");
+	}
+	
+	public function updateMovieUserData($movieId,$userId)
+    {
+		$query = $this->db->query("insert into smsm_movieuser(movie_id,user_id,actv_f,is_suggested_f) values(".$movieId.",".$userId.",'Y','Y')");
 	}
 	
 	public function updateMovieGenreData($movieId,$genreId)

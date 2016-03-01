@@ -1,0 +1,214 @@
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+Class Collectionsdata extends CI_Model
+{
+ 
+
+
+function userStatus($id)
+{
+    $query = $this->db->query("select * from users where fb_id=".$this->db->escape($id));
+
+    if($query -> num_rows() == 1)
+   {
+     return true;
+   }
+   else
+   {
+     $query = $this->db->query("insert into users(fb_id,crte_ts) values(".$this->db->escape($id).",CURRENT_TIMESTAMP)"); 
+      if($query)
+      {
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+   }
+}
+
+function getUserId($fbId)
+{
+    $query = $this->db->query("select user_id from users where fb_id=".$this->db->escape($fbId));
+
+    if($query)
+   {
+      return $query->result();
+   }
+   else
+   {
+      return false;
+      
+   }
+}
+
+function getstatistics()
+{
+    $query = $this->db->query("select * from
+            (select count(1) user_cnt from users)a,
+            (select count(1) movie_cnt from movies)b,
+            (select count(1) user_movie_cnt from usermovie)c");
+
+    if($query)
+   {
+      return $query->result();
+   }
+   else
+   {
+      return false;
+      
+   }
+}
+
+function movieStatus($movId,$title,$year)
+{
+    $query = $this->db->query("select * from movies where movie_id=".$this->db->escape($movId));
+
+    if($query -> num_rows() == 1)
+   {
+     return true;
+   }
+   else
+   {
+     $query = $this->db->query("insert into movies(movie_id,movie_name,movie_year) 
+      values(".$this->db->escape($movId).",".$this->db->escape(urldecode($title)).",".$this->db->escape($year).")"); 
+
+      if($query)
+      {
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+   }
+}
+
+function addMovie($id,$movId,$rating)
+{
+    $query = $this->db->query("select * from usermovie where movie_id=".$this->db->escape($movId)." and user_id=".$this->db->escape($id));
+
+    if($query -> num_rows() == 1)
+   {
+     //if movie already added
+     return 2;
+   }
+   else
+   {
+     $query = $this->db->query("insert into usermovie(user_id,movie_id,user_rating,crte_ts) 
+      values(".$this->db->escape($id).",".$this->db->escape($movId).",".$this->db->escape($rating).",CURRENT_TIMESTAMP)"); 
+
+      if($query)
+      {
+        return 1;
+      }
+      else
+      {
+        return 0;
+      }
+   }
+}
+
+function removeMovie($id,$movId)
+{
+
+     $query = $this->db->query("delete from usermovie where user_id=".$this->db->escape($id)." and movie_id=".$this->db->escape($movId)); 
+
+      if($query)
+      {
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+   
+}
+
+function getLibrary($id)
+{
+
+     $query = $this->db->query("select m.movie_id,m.movie_name,m.movie_year,um.user_rating,unix_timestamp(um.crte_ts) crte_ts from usermovie um 
+      join movies m on um.movie_id=m.movie_id where user_id=".$this->db->escape($id)); 
+
+      if($query)
+      {
+        return $query->result();
+      }
+      else
+      {
+        return false;
+      }
+   
+}
+
+function getSocialLibrary($id,$userId)
+{
+     /* 
+     $query = $this->db->query("select a.*,b.movie_name,b.movie_year,
+            case when (select count(*) from usermovie where user_id=".$this->db->escape($userId)." and movie_id=a.movie_id)>=1 
+            then '1' else '0' end status 
+            from
+            (select um.movie_id,cast(avg(um.user_rating) as signed) user_rating,unix_timestamp(max(um.crte_ts)) 
+            crte_ts from usermovie um
+            join users u
+            on um.user_id=u.user_id
+            where u.fb_id in
+            (".$id.")
+            group by um.movie_id
+            )a
+            join movies b
+            on a.movie_id=b.movie_id"); 
+      */
+
+      //removing the calculation for rating
+      
+      $query = $this->db->query("select a.*,b.movie_name,b.movie_year,
+            case when c.user_id is not null then '1' else '0' end status 
+            from
+            (select um.movie_id,count(1) count,unix_timestamp(max(um.crte_ts)) 
+            crte_ts from usermovie um
+            join users u
+            on um.user_id=u.user_id
+            where u.fb_id in
+            (".$id.")
+            group by um.movie_id
+            )a
+            join movies b
+            on a.movie_id=b.movie_id
+            left join usermovie c
+            on a.movie_id=c.movie_id and c.user_id=".$this->db->escape($userId)); 
+
+      if($query)
+      {
+        return $query->result();
+      }
+      else
+      {
+        return false;
+      }
+   
+}
+
+function getViews($id)
+{
+
+     $query = $this->db->query("select fb_id from usermovie um
+            join users u on um.user_id=u.user_id
+            where um.movie_id=".$this->db->escape($id)); 
+
+      if($query)
+      {
+        return $query->result();
+      }
+      else
+      {
+        return false;
+      }
+   
+}
+  
+ 
+
+}
+?>

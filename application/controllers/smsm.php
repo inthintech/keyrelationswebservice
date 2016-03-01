@@ -17,17 +17,35 @@ class Smsm extends CI_Controller {
     }
 	
 	// do not use language parameters since the cast and director are aplicable for all language.
-	public function addMovie($movieId)
+	public function addMovie($fbId,$movieId)
 	{
 		
 		
 		$this->output->set_content_type('application/json');
 		$output = array();
 		
+		//check for authentication
+		
+		if($this->smsmdata->returnUserData($fbId)==false){
+			
+			$this->output->set_status_header('503');
+			array_push($output,array(
+					'error'=>'User authentication failed';
+				));
+			$this->output->set_output(json_encode($output));
+			exit;
+		}
+		
+		$userId = $this->smsmdata->returnUserId($fbId);
+		
+		
+		
 		//check if movie exists in db
 		if($this->smsmdata->returnMovieData($movieId)==true){
 			
 			// if the movie exist in db
+			
+			$this->smsmdata->updateMovieUserData($movieId,$userId);
 			
 		}
 		else{
@@ -63,6 +81,8 @@ class Smsm extends CI_Controller {
 					$this->smsmdata->updateMovieGenreData($decoded->id,$decoded->genres[$j]->id);
 					
 				}
+				
+			$this->smsmdata->updateMovieUserData($movieId,$userId);
 			
 		}
 				
