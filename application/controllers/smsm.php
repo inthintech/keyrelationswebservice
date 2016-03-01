@@ -198,7 +198,7 @@ class Smsm extends CI_Controller {
 	
 	*/
 	
-	public function getmylibrary($accessToken){
+	public function getMyLibrary($accessToken){
 		
 		$this->output->set_content_type('application/json');
 		$output = array();
