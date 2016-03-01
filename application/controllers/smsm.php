@@ -249,7 +249,7 @@ class Smsm extends CI_Controller {
 		$fbId = $decoded->id;
 		$userId = 0;
 		
-		$result = $this->smsmdata->returnUserIdValue($fbid);
+		$result = $this->smsmdata->returnUserId($fbid);
 		
 		foreach($result as $row)
 		{

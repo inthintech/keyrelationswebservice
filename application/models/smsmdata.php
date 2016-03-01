@@ -2,7 +2,7 @@
 
 Class Smsmdata extends CI_Model
 {
- 
+	/*
     public function returnMovieData($movieId)
     {
         
@@ -85,7 +85,27 @@ Class Smsmdata extends CI_Model
     {
 		$query = $this->db->query("insert into smsm_moviegenre(movie_id,genre_id) values((select movie_id from smsm_movie where tmdb_movie_id=".$movieId."),(select genre_id from smsm_genre where tmdb_genre_id=".$genreId."))");
 	}
-    
+    */
+	
+	public function returnUserId($fbId)
+    {
+        
+		$query = $this->db->query("select user_id from smsm_user where fb_id='".$fbId."'");
+		
+		if($query->num_rows()==1)
+       {
+          
+       }
+       else
+       {
+          $query = $this->db->query("insert into smsm_user(fb_id) values('".$fbId."')");
+		  $query = $this->db->query("select user_id from smsm_user where fb_id='".$fbId."'");
+		  
+          
+       }
+		return $query->result();
+        
+    }
   
 }
 ?>
