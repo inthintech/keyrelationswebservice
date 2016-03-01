@@ -209,7 +209,8 @@ class Smsm extends CI_Controller {
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		$curl_response = curl_exec($curl);
 		curl_close($curl);
-
+		$userId = NULL;
+		
 		//if the api call is failed
 		if ($curl_response) {
 			
