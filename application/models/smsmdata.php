@@ -39,17 +39,20 @@ Class Smsmdata extends CI_Model
     {
         
 		$query = $this->db->query("select user_id from smsm_user where fb_id='".$fbId."'");
-				
-        $esult = $query->result();
 		
-		$userId = 0;
-		
-		foreach($result as $row)
-			{
-				$userId = $row->user_id;
-			}
-			
-		return $userId;
+		if($query->num_rows()==1)
+       {
+          
+       }
+       else
+       {
+          $query = $this->db->query("insert into smsm_user(fb_id) values('".$fbId."')");
+		  $query = $this->db->query("select user_id from smsm_user where fb_id='".$fbId."'");
+		  
+          
+       }
+		return $query->result();
+        
     }
 	
 	public function updateUserData($fbId)

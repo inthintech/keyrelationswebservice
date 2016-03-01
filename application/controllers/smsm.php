@@ -132,6 +132,69 @@ class Smsm extends CI_Controller {
 			
 	}
 	
+	private function getUserId($accessToken){
+		
+		$service_url = 'https://graph.facebook.com/v2.4/me?access_token='.$accessToken.'&fields=id';
+
+		//make the api call and store the response
+		$curl = curl_init($service_url);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		$curl_response = curl_exec($curl);
+		curl_close($curl);
+
+		//if the api call is failed
+		if ($curl_response === false) {
+		    //$info = curl_getinfo($curl);
+		    //curl_close($curl);
+		    //die('error occured during curl exec. Additioanl info: ' . var_export($info));
+			$this->output->set_status_header('503');
+			echo json_encode(array('error'=>'unable to reach facebook servers'));
+		    exit;
+
+		}
+		$decoded = json_decode($curl_response);
+		
+		//if the api call is success but error from facebook
+		if (isset($decoded->error)) {
+			//echo 'error';
+		    //die('error occured: ' . $decoded->response->errormessage);
+		    echo($curl_response);
+		    $this->db->close();
+		    exit;
+		}
+
+		$fbId = $decoded->id;
+		$userId = 0;
+		
+		$result = $this->smsmdata->returnUserIdValue($fbid);
+		
+		foreach($result as $row)
+		{
+			$userId = $row->user_id;
+		}
+		
+		return $userId;
+		
+	}
+	
+	
+	public function getmylibrary($accessToken){
+		
+		$this->output->set_content_type('application/json');
+		$output = array();
+		
+		$userId = $this->getUserId($accessToken);
+		
+		
+		array_push($output,array(
+					'success'=>$userId
+				));
+		
+		$this->output->set_output(json_encode($output));
+
+		
+	}
+	
 	
 	
 	
