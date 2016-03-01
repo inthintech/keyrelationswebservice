@@ -198,22 +198,7 @@ class Smsm extends CI_Controller {
 	
 	*/
 	
-	public function getMyLibrary($accessToken){
-		
-		$this->output->set_content_type('application/json');
-		$output = array();
-		
-		$userId = $this->getUserId($accessToken);
-		
-		
-		array_push($output,array(
-					'success'=>$userId
-				));
-		
-		$this->output->set_output(json_encode($output));
-
-		
-	}
+	
 	
 	private function getUserId($accessToken){
 		
@@ -226,40 +211,65 @@ class Smsm extends CI_Controller {
 		curl_close($curl);
 
 		//if the api call is failed
-		if ($curl_response === false) {
-		    //$info = curl_getinfo($curl);
-		    //curl_close($curl);
-		    //die('error occured during curl exec. Additioanl info: ' . var_export($info));
+		if ($curl_response) {
+			
+				$decoded = json_decode($curl_response);
+		
+				//if the api call is success but error from facebook
+				if (!isset($decoded->error)) {
+					$fbId = $decoded->id;
+						$userId = 0;
+						$result = $this->smsmdata->returnUserId($fbId);
+						foreach($result as $row){
+							$userId = $row->user_id;
+						}
+				}
+				
+			}
+			return $userId;
+		}
+	
+	public function getMyLibrary($accessToken){
+		
+		/******************** API Start Module ********************/
+		$this->output->set_content_type('application/json');
+		$output = array();
+		$errCode = 0;
+		$userId = $this->getUserId($accessToken);
+		$userAuthenticated = 0;
+		
+		if($userId){
+			$userAuthenticated = 1;
+		}
+		else{
+			array_push($output,array(
+					'error'=>'unable to authenticate user'
+				));
+			$errCode=1;
+		}
+		/******************** API Start Module ********************/
+		
+		if($userAuthenticated==1){
+			
+			// continue the module only if user is authenticated
+			
+			
+			
+		}
+		
+		
+		/******************** API End Module ********************/
+		if($errCode==0){
+			$this->output->set_status_header('200');
+		}
+		else{
 			$this->output->set_status_header('503');
-			echo json_encode(array('error'=>'unable to reach facebook servers'));
-		    exit;
+		}
+		$this->output->set_output(json_encode($output));
+		/******************** API End Module ********************/
 
-		}
-		$decoded = json_decode($curl_response);
-		
-		//if the api call is success but error from facebook
-		if (isset($decoded->error)) {
-			//echo 'error';
-		    //die('error occured: ' . $decoded->response->errormessage);
-		    echo($curl_response);
-		    $this->db->close();
-		    exit;
-		}
-
-		$fbId = $decoded->id;
-		$userId = 0;
-		
-		$result = $this->smsmdata->returnUserId($fbId);
-		
-		foreach($result as $row)
-		{
-			$userId = $row->user_id;
-		}
-		
-		return $userId;
 		
 	}
-	
 }
 
 
