@@ -80,7 +80,7 @@ Class Smsmdata extends CI_Model
 	
 	public function updateMovieUserData($movieId,$userId)
     {
-		$query = $this->db->query("select movie_id from smsm_movieuser where movie_id=".$movieId);
+		$query = $this->db->query("select movie_id from smsm_movieuser where user_id=".$userId);
 		
         if($query->num_rows()>=1)
        {
