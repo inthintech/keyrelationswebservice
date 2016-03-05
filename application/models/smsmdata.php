@@ -148,6 +148,50 @@ order by a.crte_ts desc");
 	
     }
 	
+	public function returnMovieLibrary($searchId,$userId)
+    {
+        
+		switch($searchId){
+			
+			// most suggested movies
+			case 99:
+				$query = $this->db->query("select b.tmdb_movie_id,b.movie_name,b.movie_poster_image,b.release_year,COUNT(*) CNT  
+from smsm_movieuser a
+join smsm_movie b
+on a.movie_id=b.movie_id
+where a.movie_id not in
+(select movie_id from smsm_movieuser where user_id=".$userId.")
+group by b.tmdb_movie_id,b.movie_name,b.movie_poster_image,b.release_year
+order by CNT desc");
+				break;
+			
+			// movies suggested by genre
+			default:
+				$query = $this->db->query("select b.tmdb_movie_id,b.movie_name,b.movie_poster_image,b.release_year,COUNT(*) CNT  
+from smsm_movieuser a
+join smsm_movie b
+on a.movie_id=b.movie_id
+join smsm_moviegenre c
+on b.movie_id=c.movie_id
+where c.genre_id=".$searchId." and a.movie_id not in
+(select movie_id from smsm_movieuser where user_id=".$userId.")
+group by b.tmdb_movie_id,b.movie_name,b.movie_poster_image,b.release_year
+order by CNT desc");
+				break;
+			
+		}
+		
+		if($query->num_rows()>=1)
+       {
+          return $query->result();
+       }
+       else
+       {
+          return false;
+       }
+	
+    }
+	
 	public function updateUserSuggestion($movieId,$userId,$suggId)
     {
          

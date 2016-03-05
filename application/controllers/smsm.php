@@ -513,6 +513,61 @@ class Smsm extends CI_Controller {
 		
 	}
 	
+	public function findMovie($accessToken,$searchId){
+		
+		/******************** API Start Module ********************/
+		$this->output->set_content_type('application/json');
+		$output = array();
+		$errCode = 0;
+		$userId = $this->getUserId($accessToken);
+		$userAuthenticated = 0;
+		
+		if($userId){
+			$userAuthenticated = 1;
+		}
+		else{
+			array_push($output,array(
+					'error'=>'unable to authenticate user'
+				));
+			$errCode=1;
+		}
+		
+		/******************** API Start Module ********************/
+		
+		if($userAuthenticated==1){
+			
+			// continue the module only if user is authenticated
+			
+			$result = $this->smsmdata->returnMovieLibrary($searchId,$userId);
+			
+			if($result)
+			{
+				foreach($result as $row)
+				{
+					array_push($output,array(
+						'id'=>$row->tmdb_movie_id,
+						'title'=>$row->movie_name,
+						'poster_path'=>$row->movie_poster_image,
+						'release_year'=>$row->release_year,
+						'suggested_by'=>$row->cnt
+					));
+
+				} 
+			}
+
+		}
+		
+		
+		/******************** API End Module ********************/
+		if($errCode<>0){
+			$this->output->set_status_header('401');
+		}
+		$this->output->set_output(json_encode($output));
+		/******************** API End Module ********************/
+
+		
+	}
+	
 }
 
 
