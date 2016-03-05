@@ -80,7 +80,14 @@ Class Smsmdata extends CI_Model
 	
 	public function updateMovieUserData($movieId,$userId)
     {
-		$query = $this->db->query("select movie_id from smsm_movieuser where user_id=".$userId);
+			$query = $this->db->query("select movie_id from smsm_movie where tmdb_movie_id=".$movieId);
+		  $result = $query->result();
+		  foreach($result as $row)
+		  {
+			$dbMovieId = $row->movie_id;
+		  }
+		
+		$query = $this->db->query("select movie_id from smsm_movieuser where user_id=".$userId." and movie_id=".$dbMovieId);
 		
         if($query->num_rows()>=1)
        {
@@ -88,12 +95,7 @@ Class Smsmdata extends CI_Model
        }
        else
        {
-          $query = $this->db->query("select movie_id from smsm_movie where tmdb_movie_id=".$movieId);
-		  $result = $query->result();
-		  foreach($result as $row)
-		  {
-			$dbMovieId = $row->movie_id;
-		  }
+          
 		  $query = $this->db->query("insert into smsm_movieuser(movie_id,user_id,actv_f,is_suggested_f,crte_ts) values(".$dbMovieId.",".$userId.",'Y','Y',CURRENT_TIMESTAMP)");
 		  return 1;
           
