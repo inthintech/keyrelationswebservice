@@ -159,7 +159,7 @@ order by a.crte_ts desc");
 from smsm_movieuser a
 join smsm_movie b
 on a.movie_id=b.movie_id
-where a.is_suggested_f='Y' and a.movie_id not in
+where a.is_suggested_f='Y' and a.actv_f='Y' and a.movie_id not in
 (select movie_id from smsm_movieuser where user_id=".$userId.")
 group by b.tmdb_movie_id,b.movie_name,b.movie_poster_image,b.release_year
 order by CNT desc");
@@ -173,7 +173,7 @@ join smsm_movie b
 on a.movie_id=b.movie_id
 join smsm_moviegenre c
 on b.movie_id=c.movie_id
-where c.genre_id=".$searchId." and a.is_suggested_f='Y' and a.movie_id not in
+where c.genre_id=".$searchId." and a.is_suggested_f='Y' and a.actv_f='Y' and a.movie_id not in
 (select movie_id from smsm_movieuser where user_id=".$userId.")
 group by b.tmdb_movie_id,b.movie_name,b.movie_poster_image,b.release_year
 order by CNT desc");
@@ -223,6 +223,27 @@ order by CNT desc");
 			}
 		}
 		
+    }
+	
+	public function deleteUserMovie($movieId,$userId)
+    {
+         
+		 $query = $this->db->query("select movie_id from smsm_movie where tmdb_movie_id=".$movieId);
+			
+			$result = $query->result();
+		  
+		  foreach($result as $row)
+		  {
+			$dbMovieId = $row->movie_id;
+		  }
+			
+			//remove movie from library
+			if($this->db->query("update smsm_movieuser set actv_f='N' where user_id=".$userId." and movie_id=".$dbMovieId)){
+				return true;
+			}
+			else{
+				return false;
+			}
     }
 	
   

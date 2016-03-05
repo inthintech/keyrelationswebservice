@@ -568,6 +568,56 @@ class Smsm extends CI_Controller {
 		
 	}
 	
+	public function removeMovie($accessToken,$movieId){
+		
+		/******************** API Start Module ********************/
+		$this->output->set_content_type('application/json');
+		$output = array();
+		$errCode = 0;
+		$userId = $this->getUserId($accessToken);
+		$userAuthenticated = 0;
+		
+		if($userId){
+			$userAuthenticated = 1;
+		}
+		else{
+			array_push($output,array(
+					'error'=>'unable to authenticate user'
+				));
+			$errCode=1;
+		}
+		
+		/******************** API Start Module ********************/
+		
+		if($userAuthenticated==1){
+			
+			// continue the module only if user is authenticated
+			
+			$result = $this->smsmdata->deleteUserMovie($movieId,$userId);
+			if($result){
+				array_push($output,array(
+					'success'=>'movie removed from library'
+				));
+			}
+			else{
+				array_push($output,array(
+					'error'=>'bad input'
+				));
+			}
+
+		}
+		
+		
+		/******************** API End Module ********************/
+		if($errCode<>0){
+			$this->output->set_status_header('401');
+		}
+		$this->output->set_output(json_encode($output));
+		/******************** API End Module ********************/
+
+		
+	}
+	
 }
 
 
