@@ -231,6 +231,11 @@ order by CNT desc");
     {
          
 		 $query = $this->db->query("select movie_id from smsm_movie where tmdb_movie_id=".$movieId);
+		 if($query->num_rows()==0)
+       {
+          return false;
+       }
+		 
 			
 			$result = $query->result();
 		  
