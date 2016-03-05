@@ -274,10 +274,7 @@ class Smsm extends CI_Controller {
 		
 		
 		/******************** API End Module ********************/
-		if($errCode==0){
-			$this->output->set_status_header('200');
-		}
-		else{
+		if($errCode<>0){
 			$this->output->set_status_header('401');
 		}
 		$this->output->set_output(json_encode($output));
@@ -381,10 +378,7 @@ class Smsm extends CI_Controller {
 		
 		
 		/******************** API End Module ********************/
-		if($errCode==0){
-			$this->output->set_status_header('200');
-		}
-		else{
+		if($errCode<>0){
 			$this->output->set_status_header('401');
 		}
 		$this->output->set_output(json_encode($output));
@@ -438,10 +432,7 @@ class Smsm extends CI_Controller {
 		
 		
 		/******************** API End Module ********************/
-		if($errCode==0){
-			$this->output->set_status_header('200');
-		}
-		else{
+		if($errCode<>0){
 			$this->output->set_status_header('401');
 		}
 		$this->output->set_output(json_encode($output));
@@ -476,7 +467,7 @@ class Smsm extends CI_Controller {
 			// continue the module only if user is authenticated
 			
 			
-			$service_url = 'https://api.themoviedb.org/3/search/movie?api_key='.$this->tmdbApiKey.'&query='.urldecode($movieName).'&page=1';
+			$service_url = 'https://api.themoviedb.org/3/search/movie?api_key='.$this->tmdbApiKey.'&query='.$movieName.'&page=1';
 			echo $service_url;
 			//echo $service_url;
 
@@ -513,10 +504,7 @@ class Smsm extends CI_Controller {
 		
 		
 		/******************** API End Module ********************/
-		if($errCode==0){
-			$this->output->set_status_header('200');
-		}
-		else{
+		if($errCode<>0){
 			$this->output->set_status_header('401');
 		}
 		$this->output->set_output(json_encode($output));
