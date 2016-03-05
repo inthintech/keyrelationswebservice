@@ -568,7 +568,7 @@ class Smsm extends CI_Controller {
 		
 	}
 	
-	public function removeMovie($accessToken,$movieId){
+	public function removeUserMovie($accessToken,$movieId){
 		
 		/******************** API Start Module ********************/
 		$this->output->set_content_type('application/json');
