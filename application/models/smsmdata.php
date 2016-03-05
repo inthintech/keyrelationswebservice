@@ -163,7 +163,7 @@ order by a.crte_ts desc");
 		  
 		if($suggId==1){
 			//suggest movie
-			//$query = $this->db->query("update smsm_movieuser set is_suggested_f='Y' where user_id=".$userId." and movie_id=".$dbMovieId);
+			$query = $this->db->query("update smsm_movieuser set is_suggested_f='Y' where user_id=".$userId." and movie_id=".$dbMovieId);
 		}
 		else{
 			//unsuggest movie
