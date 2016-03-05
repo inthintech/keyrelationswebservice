@@ -482,6 +482,7 @@ class Smsm extends CI_Controller {
 			
 			
 			$service_url = 'https://api.themoviedb.org/3/search/movie?api_key='.$this->tmdbApiKey.'&query='.urldecode($movieName).'&page=1';
+			echo $service_url;
 			//echo $service_url;
 
 			//make the api call and store the response
