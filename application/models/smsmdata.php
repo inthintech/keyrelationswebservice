@@ -130,7 +130,7 @@ Class Smsmdata extends CI_Model
 	public function returnUserLibrary($userId)
     {
         
-		$query = $this->db->query("select b.tmdb_movie_id,b.movie_name,b.movie_poster_image,b.release_year 
+		$query = $this->db->query("select b.tmdb_movie_id,b.movie_name,b.movie_poster_image,b.release_year,is_suggested_f  
 from smsm_movieuser a
 join smsm_movie b
 on a.movie_id=b.movie_id
