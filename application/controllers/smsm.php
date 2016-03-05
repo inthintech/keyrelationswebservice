@@ -425,16 +425,17 @@ class Smsm extends CI_Controller {
 			
 			$result = $this->smsmdata->updateUserMovieSuggestion($movieId,$userId,$suggId);
 			
+			/*
 			if($result){
-				//array_push($output,array(
-				//	'success'=>'movie suggestion changed'
-				//));
+				array_push($output,array(
+					'success'=>'movie suggestion changed'
+				));
 			}
 			else{
-				//array_push($output,array(
-				//	'error'=>'bad input'
-				//));
-			}
+				array_push($output,array(
+					'error'=>'bad input'
+				));
+			}*/
 			
 		}
 		
