@@ -148,7 +148,7 @@ order by a.crte_ts desc");
 	
     }
 	
-	public function updateUserMovieSuggestion($movieId,$userId,$suggId)
+	public function updateUserSuggestion($movieId,$userId,$suggId)
     {
          $query = $this->db->query("select movie_id from smsm_movie where tmdb_movie_id=".$movieId);
 		  $result = $query->result();

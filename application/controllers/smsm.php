@@ -423,9 +423,9 @@ class Smsm extends CI_Controller {
 			
 			// continue the module only if user is authenticated
 			
-			//$result = $this->smsmdata->updateUserMovieSuggestion($movieId,$userId,$suggId);
+			$result = $this->smsmdata->updateUserSuggestion($movieId,$userId,$suggId);
 			
-			$result = true;
+			//$result = true;
 			
 			
 			if($result){
