@@ -339,18 +339,20 @@ class Smsm extends CI_Controller {
 			$curl = curl_init($service_url);
 			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 			$curl_response = curl_exec($curl);
+			$httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 			
 			//if the api call is failed
 			if ($curl_response == false) {
 			    //$info = curl_getinfo($curl);
-			    curl_close($curl);
-				$this->output->set_status_header('503');
+			    //curl_close($curl);
+				//$this->output->set_status_header('503');
 				array_push($output,array(
-					'error'=>'unable to identify movie'
+					'error'=>'tmdb api call failed'
 				));
+				$this->output->set_status_header('500');
 
 			}
-			else{
+			if($httpcode==200){
 					curl_close($curl);
 					$decoded = json_decode($curl_response);
 					$this->smsmdata->updateMovieData($decoded->id,$decoded->title,$decoded->poster_path,$decoded->release_date);
@@ -370,6 +372,11 @@ class Smsm extends CI_Controller {
 							'code'=>'1','message'=>'movie added successfully'
 						));
 					}
+				}
+				else{
+					array_push($output,array(
+					'error'=>'unable to identify movie'
+					));
 				}
 				
 			}	
