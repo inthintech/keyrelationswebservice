@@ -264,7 +264,7 @@ class Smsm extends CI_Controller {
 						'id'=>$row->tmdb_movie_id,
 						'title'=>$row->movie_name,
 						'poster_path'=>$row->movie_poster_image,
-						'release_year'=>$row->release_year.
+						'release_year'=>$row->release_year,
 						'is_suggested'=>$row->is_suggested_f
 					));
 
