@@ -87,7 +87,7 @@ Class Smsmdata extends CI_Model
 			$dbMovieId = $row->movie_id;
 		  }
 		
-		$query = $this->db->query("select movie_id from smsm_movieuser where user_id=".$userId." and movie_id=".$dbMovieId);
+		$query = $this->db->query("select movie_id from smsm_movieuser where actv_f='Y' and user_id=".$userId." and movie_id=".$dbMovieId);
 		
         if($query->num_rows()>=1)
        {
@@ -136,7 +136,7 @@ Class Smsmdata extends CI_Model
 from smsm_movieuser a
 join smsm_movie b
 on a.movie_id=b.movie_id
-where a.user_id=".$userId."
+where a.actv_f='Y' and a.user_id=".$userId."
 order by a.crte_ts desc");
 		
 		if($query->num_rows()>=1)
