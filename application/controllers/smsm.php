@@ -455,6 +455,86 @@ class Smsm extends CI_Controller {
 		
 	}
 	
+	public function searchMovie($accessToken,$movieName){
+		
+		/******************** API Start Module ********************/
+		$this->output->set_content_type('application/json');
+		$output = array();
+		$errCode = 0;
+		$userId = $this->getUserId($accessToken);
+		$userAuthenticated = 0;
+		
+		if($userId){
+			$userAuthenticated = 1;
+		}
+		else{
+			array_push($output,array(
+					'error'=>'unable to authenticate user'
+				));
+			$errCode=1;
+		}
+		
+		/******************** API Start Module ********************/
+		
+		if($userAuthenticated==1){
+			
+			// continue the module only if user is authenticated
+			
+			
+			$service_url = 'https://api.themoviedb.org/3/search/movie?api_key='.$this->tmdbApiKey.'&query='.urldecode($movieName).'&page=1';
+			//echo $service_url;
+
+			//make the api call and store the response
+			$curl = curl_init($service_url);
+			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+			$curl_response = curl_exec($curl);
+			$httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+			
+			//if the api call is failed
+			if ($curl_response == false) {
+			    //$info = curl_getinfo($curl);
+			    //curl_close($curl);
+				//$this->output->set_status_header('503');
+				array_push($output,array(
+					'error'=>'tmdb api call failed'
+				));
+				$this->output->set_status_header('500');
+
+			}
+			if($httpcode==200){
+					curl_close($curl);
+					$decoded = json_decode($curl_response);
+					for($i=0;$i<count($decoded->results);$i++)
+					{
+						array_push($output,array('id'=>$decoded->results[$i]->id,
+						'title'=>$decoded->results[$i]->title,
+						'overview'=>$decoded->results[$i]->overview,
+						'poster_path'=>$decoded->results[$i]->poster_path,
+						//'poster_path'=>'',
+						'release_date'=>$decoded->results[$i]->release_date));
+					}
+				}
+				else{
+					array_push($output,array(
+					'error'=>'unable to identify movie'
+					));
+				}
+		}
+		
+		
+		/******************** API End Module ********************/
+		if($errCode==0){
+			$this->output->set_status_header('200');
+		}
+		else{
+			$this->output->set_status_header('401');
+		}
+		$this->output->set_output(json_encode($output));
+		/******************** API End Module ********************/
+
+		
+	}
+	
 }
 
 
