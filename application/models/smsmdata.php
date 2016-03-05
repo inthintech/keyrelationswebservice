@@ -147,6 +147,28 @@ order by a.crte_ts desc");
        }
 	
     }
+	
+	public function updateUserMovieSuggestion(,$movieId,$userId,$suggId)
+    {
+         $query = $this->db->query("select movie_id from smsm_movie where tmdb_movie_id=".$movieId);
+		  $result = $query->result();
+		  foreach($result as $row)
+		  {
+			$dbMovieId = $row->movie_id;
+		  }
+		  
+		if($suggId==1){
+			//suggest movie
+			$query = $this->db->query("update smsm_movieuser set is_suggested_f='Y' where user_id=".$userId." and movie_id=".$dbMovieId);
+		}
+		else{
+			//unsuggest movie
+			$query = $this->db->query("update smsm_movieuser set is_suggested_f='N' where user_id=".$userId." and movie_id=".$dbMovieId);
+		}
+		return $query->result();
+        
+    }
+	
   
 }
 ?>
