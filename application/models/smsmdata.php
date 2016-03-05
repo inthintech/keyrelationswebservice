@@ -80,7 +80,19 @@ Class Smsmdata extends CI_Model
 	
 	public function updateMovieUserData($movieId,$userId)
     {
-		$query = $this->db->query("insert into smsm_movieuser(movie_id,user_id,actv_f,is_suggested_f) values(".$movieId.",".$userId.",'Y','Y')");
+		$query = $this->db->query("select movie_id from smsm_movieuser where user_id=".$userId);
+				
+        if($query->num_rows()>=1)
+       {
+          return 0;
+       }
+       else
+       {
+          $query = $this->db->query("insert into smsm_movieuser(movie_id,user_id,actv_f,is_suggested_f) values(".$movieId.",".$userId.",'Y','Y')");
+		  return 1;
+          
+       }
+	   
 	}
 	
 	public function updateMovieGenreData($movieId,$genreId)

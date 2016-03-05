@@ -314,7 +314,18 @@ class Smsm extends CI_Controller {
 			
 			// if the movie exist in db
 			
-			$this->smsmdata->updateMovieUserData($movieId,$userId);
+			$result = $this->smsmdata->updateMovieUserData($movieId,$userId);
+			
+			if($result==0){
+				array_push($output,array(
+					'code'=>'0','message'=>'movie already added'
+				));
+			}
+			else{
+				array_push($output,array(
+					'code'=>'1','message'=>'movie added successfully'
+				));
+			}
 			
 		}
 		else{
@@ -330,32 +341,38 @@ class Smsm extends CI_Controller {
 			$curl_response = curl_exec($curl);
 			
 			//if the api call is failed
-			if ($curl_response === false) {
+			if ($curl_response == false) {
 			    //$info = curl_getinfo($curl);
 			    curl_close($curl);
-			    //die('error occured during curl exec. Additioanl info: ' . var_export($info));
-			    echo json_encode(array('error'=>'unable to get information from moviedb server'));
 				$this->output->set_status_header('503');
-			    exit;
+				array_push($output,array(
+					'error'=>'unable to identify movie'
+				));
 
 			}
-			curl_close($curl);
-			$decoded = json_decode($curl_response);
-			
-			$this->smsmdata->updateMovieData($decoded->id,$decoded->title,$decoded->poster_path,$decoded->release_date);
-			
-			for($j=0;$j<count($decoded->genres);$j++)
-				{
+			else{
+					curl_close($curl);
+					$decoded = json_decode($curl_response);
+					$this->smsmdata->updateMovieData($decoded->id,$decoded->title,$decoded->poster_path,$decoded->release_date);
+					for($j=0;$j<count($decoded->genres);$j++)
+					{
+						$this->smsmdata->updateMovieGenreData($decoded->id,$decoded->genres[$j]->id);	
+					}		
 					
-					$this->smsmdata->updateMovieGenreData($decoded->id,$decoded->genres[$j]->id);
-					
+					$result = $this->smsmdata->updateMovieUserData($movieId,$userId);
+					if($result==0){
+						array_push($output,array(
+							'code'=>'0','message'=>'movie already added'
+						));
+					}
+					else{
+						array_push($output,array(
+							'code'=>'1','message'=>'movie added successfully'
+						));
+					}
 				}
 				
-			$this->smsmdata->updateMovieUserData($movieId,$userId);
-			
-		}
-			
-			
+			}	
 			
 		}
 		
