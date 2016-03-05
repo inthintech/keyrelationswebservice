@@ -160,8 +160,6 @@ order by a.crte_ts desc");
 			$dbMovieId = $row->movie_id;
 		  }
 		
-		$updtquery =''; 
-		
 		if($suggId==1){
 			//suggest movie
 			$updtquery = $this->db->query("update smsm_movieuser set is_suggested_f='Y' where user_id=1 and movie_id=2");
