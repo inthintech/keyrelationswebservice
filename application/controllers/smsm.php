@@ -374,11 +374,6 @@ class Smsm extends CI_Controller {
 						));
 					}
 				}
-				else{
-					array_push($output,array(
-					'error'=>'unable to identify movie'
-					));
-				}
 				
 			}	
 			
@@ -513,12 +508,7 @@ class Smsm extends CI_Controller {
 							'poster_path'=>$decoded->results[$i]->poster_path,
 							'release_date'=>$decoded->results[$i]->release_date));
 					}
-				}
-				else{
-					array_push($output,array(
-					'error'=>'unable to identify movie'
-					));
-				}
+				}			
 		}
 		
 		
