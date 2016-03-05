@@ -162,7 +162,7 @@ order by a.crte_ts desc");
 		
 		if($suggId==1){
 			//suggest movie
-			if($this->db->query("update smsm_movieuser set is_suggested_f='Y' where user_id=1 and movie_id=2")){
+			if($this->db->query("update smsm_movieuser set is_suggested_f='Y' where user_id=".$userId." and movie_id=".$dbMovieId)){
 				return true;
 			}
 			else{
@@ -171,7 +171,7 @@ order by a.crte_ts desc");
 		}
 		else{
 			//unsuggest movie
-			if($this->db->query("update smsm_movieuser set is_suggested_f='N' where user_id=1 and movie_id=2")){
+			if($this->db->query("update smsm_movieuser set is_suggested_f='N' where user_id=".$userId." and movie_id=".$dbMovieId)){
 				return true;
 			}
 			else{
