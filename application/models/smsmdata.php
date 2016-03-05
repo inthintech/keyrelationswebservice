@@ -3,21 +3,7 @@
 Class Smsmdata extends CI_Model
 {
 	/*
-    public function returnMovieData($movieId)
-    {
-        
-		$query = $this->db->query("select movie_id from smsm_movie where tmdb_movie_id=".$movieId);
-				
-        if($query->num_rows()>=1)
-       {
-          return true;
-       }
-       else
-       {
-          return false;
-          
-       }
-    }
+    
 	
 	public function returnUserData($fbId)
     {
@@ -70,6 +56,22 @@ Class Smsmdata extends CI_Model
        }
 		
 	}
+	*/
+	public function returnMovieData($movieId)
+    {
+        
+		$query = $this->db->query("select movie_id from smsm_movie where tmdb_movie_id=".$movieId);
+				
+        if($query->num_rows()>=1)
+       {
+          return true;
+       }
+       else
+       {
+          return false;
+          
+       }
+    }
 	
 	public function updateMovieData($movieId,$name,$img,$year)
     {
@@ -85,7 +87,7 @@ Class Smsmdata extends CI_Model
     {
 		$query = $this->db->query("insert into smsm_moviegenre(movie_id,genre_id) values((select movie_id from smsm_movie where tmdb_movie_id=".$movieId."),(select genre_id from smsm_genre where tmdb_genre_id=".$genreId."))");
 	}
-    */
+    
 	
 	public function returnUserId($fbId)
     {

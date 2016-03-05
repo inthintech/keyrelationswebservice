@@ -230,7 +230,7 @@ class Smsm extends CI_Controller {
 			return $userId;
 		}
 	
-	public function getMyLibrary($accessToken){
+	public function getUserLibrary($accessToken){
 		
 		/******************** API Start Module ********************/
 		$this->output->set_content_type('application/json');
@@ -269,6 +269,94 @@ class Smsm extends CI_Controller {
 
 				} 
 			}
+		}
+		
+		
+		/******************** API End Module ********************/
+		if($errCode==0){
+			$this->output->set_status_header('200');
+		}
+		else{
+			$this->output->set_status_header('401');
+		}
+		$this->output->set_output(json_encode($output));
+		/******************** API End Module ********************/
+
+		
+	}
+	
+	public function addUserMovie($accessToken,$movieId){
+		
+		/******************** API Start Module ********************/
+		$this->output->set_content_type('application/json');
+		$output = array();
+		$errCode = 0;
+		$userId = $this->getUserId($accessToken);
+		$userAuthenticated = 0;
+		
+		if($userId){
+			$userAuthenticated = 1;
+		}
+		else{
+			array_push($output,array(
+					'error'=>'unable to authenticate user'
+				));
+			$errCode=1;
+		}
+		/******************** API Start Module ********************/
+		
+		if($userAuthenticated==1){
+			
+			// continue the module only if user is authenticated
+			
+			//check if movie exists in db
+		if($this->smsmdata->returnMovieData($movieId)==true){
+			
+			// if the movie exist in db
+			
+			$this->smsmdata->updateMovieUserData($movieId,$userId);
+			
+		}
+		else{
+			
+			//if the movie does not exist in db
+			
+			$service_url = 'https://api.themoviedb.org/3/movie/'.$movieId.'?api_key='.$this->tmdbApiKey;
+			//echo $service_url;
+
+			//make the api call and store the response
+			$curl = curl_init($service_url);
+			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+			$curl_response = curl_exec($curl);
+			
+			//if the api call is failed
+			if ($curl_response === false) {
+			    //$info = curl_getinfo($curl);
+			    curl_close($curl);
+			    //die('error occured during curl exec. Additioanl info: ' . var_export($info));
+			    echo json_encode(array('error'=>'unable to get information from moviedb server'));
+				$this->output->set_status_header('503');
+			    exit;
+
+			}
+			curl_close($curl);
+			$decoded = json_decode($curl_response);
+			
+			$this->smsmdata->updateMovieData($decoded->id,$decoded->title,$decoded->poster_path,$decoded->release_date);
+			
+			for($j=0;$j<count($decoded->genres);$j++)
+				{
+					
+					$this->smsmdata->updateMovieGenreData($decoded->id,$decoded->genres[$j]->id);
+					
+				}
+				
+			$this->smsmdata->updateMovieUserData($movieId,$userId);
+			
+		}
+			
+			
+			
 		}
 		
 		
