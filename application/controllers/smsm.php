@@ -416,6 +416,7 @@ class Smsm extends CI_Controller {
 				));
 			$errCode=1;
 		}
+		
 		/******************** API Start Module ********************/
 		
 		if($userAuthenticated==1){
