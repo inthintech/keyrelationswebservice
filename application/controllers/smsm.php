@@ -427,7 +427,7 @@ class Smsm extends CI_Controller {
 			
 			$result = true;
 			
-			/*
+			
 			if($result){
 				array_push($output,array(
 					'success'=>'movie suggestion changed'
@@ -437,7 +437,7 @@ class Smsm extends CI_Controller {
 				array_push($output,array(
 					'error'=>'bad input'
 				));
-			}*/
+			}
 			
 		}
 		
