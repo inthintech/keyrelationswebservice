@@ -254,8 +254,21 @@ class Smsm extends CI_Controller {
 			
 			// continue the module only if user is authenticated
 			
+			$result = $this->smsmdata->returnUserLibrary($userId);
 			
-			
+			if($result)
+			{
+				foreach($result as $row)
+				{
+					array_push($output,array(
+						'id'=>$row->tmdb_movie_id,
+						'title'=>$row->movie_name,
+						'poster_path'=>$row->movie_poster_image,
+						'release_year'=>$row->release_year
+					));
+
+				} 
+			}
 		}
 		
 		
@@ -264,7 +277,7 @@ class Smsm extends CI_Controller {
 			$this->output->set_status_header('200');
 		}
 		else{
-			$this->output->set_status_header('503');
+			$this->output->set_status_header('401');
 		}
 		$this->output->set_output(json_encode($output));
 		/******************** API End Module ********************/
