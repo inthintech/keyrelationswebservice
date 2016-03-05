@@ -419,10 +419,11 @@ class Smsm extends CI_Controller {
 		/******************** API Start Module ********************/
 		
 		if($userAuthenticated==1){
-			/*
+			
 			// continue the module only if user is authenticated
 			
 			$result = $this->smsmdata->updateUserMovieSuggestion($movieId,$userId,$suggId);
+			
 			if($result){
 				array_push($output,array(
 					'success'=>'movie suggestion changed'
@@ -433,7 +434,7 @@ class Smsm extends CI_Controller {
 					'error'=>'bad input'
 				));
 			}
-			*/
+			
 		}
 		
 		
