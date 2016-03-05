@@ -164,7 +164,7 @@ order by a.crte_ts desc");
 		
 		if($suggId==1){
 			//suggest movie
-			$updtquery = $this->db->query("select movie_id from smsm_movie where tmdb_movie_id=".$movieId);
+			$updtquery = $this->db->query("update smsm_movieuser set is_suggested_f='Y' where user_id=1 and movie_id=2");
 		}
 		else{
 			//unsuggest movie
