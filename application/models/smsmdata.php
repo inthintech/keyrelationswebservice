@@ -150,7 +150,8 @@ order by a.crte_ts desc");
 	
 	public function updateUserSuggestion($movieId,$userId,$suggId)
     {
-         $query = $this->db->query("select movie_id from smsm_movie where tmdb_movie_id=".$movieId);
+         /*
+		 $query = $this->db->query("select movie_id from smsm_movie where tmdb_movie_id=".$movieId);
 		  $result = $query->result();
 		  foreach($result as $row)
 		  {
@@ -166,7 +167,7 @@ order by a.crte_ts desc");
 			$query = $this->db->query("update smsm_movieuser set is_suggested_f='N' where user_id=".$userId." and movie_id=".$dbMovieId);
 		}
 		return $query->result();
-        
+        */
     }
 	
   
