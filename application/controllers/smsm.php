@@ -493,7 +493,7 @@ class Smsm extends CI_Controller {
 					$decoded = json_decode($curl_response);
 					for($i=0;$i<count($decoded->results);$i++)
 					{
-						if(isset($decoded->results[$i]->release_date)&&$decoded->results[$i]->release_date!=false){
+						if(isset($decoded->results[$i]->release_date)&&$decoded->results[$i]->release_date!="false"){
 							$ryear=substr($decoded->results[$i]->release_date,0,4);
 						}
 						else{
