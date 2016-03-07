@@ -500,7 +500,7 @@ class Smsm extends CI_Controller {
 							'id'=>$decoded->results[$i]->id,
 							'title'=>$decoded->results[$i]->title,
 							'poster_path'=>$decoded->results[$i]->poster_path,
-							'release_date'=>$ryear));
+							'release_year'=>$ryear));
 					}
 				}			
 		}
