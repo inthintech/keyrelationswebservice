@@ -497,7 +497,7 @@ class Smsm extends CI_Controller {
 							'id'=>$decoded->results[$i]->id,
 							'title'=>$decoded->results[$i]->title,
 							'poster_path'=>$decoded->results[$i]->poster_path,
-							'release_date'=>substr($decoded->results[$i]->release_date,0,4));
+							'release_date'=>$decoded->results[$i]->release_date);
 					}
 				}			
 		}
