@@ -493,11 +493,14 @@ class Smsm extends CI_Controller {
 					$decoded = json_decode($curl_response);
 					for($i=0;$i<count($decoded->results);$i++)
 					{
+						if(isset($decoded->results[$i]->release_date)){
+							$ryear=substr($decoded->results[$i]->release_date,0,4);
+						}
 						array_push($output,array(
 							'id'=>$decoded->results[$i]->id,
 							'title'=>$decoded->results[$i]->title,
 							'poster_path'=>$decoded->results[$i]->poster_path,
-							'release_date'=>$decoded->results[$i]->release_date);
+							'release_date'=>$ryear));
 					}
 				}			
 		}
