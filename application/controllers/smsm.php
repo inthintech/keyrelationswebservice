@@ -496,10 +496,21 @@ class Smsm extends CI_Controller {
 						if(isset($decoded->results[$i]->release_date)){
 							$ryear=substr($decoded->results[$i]->release_date,0,4);
 						}
+						else{
+							$ryear='Unknown';
+						}
+						
+						if(isset($decoded->results[$i]->poster_path)){
+							$pp=$decoded->results[$i]->poster_path;
+						}
+						else{
+							$pp='Unknown';
+						}
+						
 						array_push($output,array(
 							'id'=>$decoded->results[$i]->id,
 							'title'=>$decoded->results[$i]->title,
-							'poster_path'=>$decoded->results[$i]->poster_path,
+							'poster_path'=>$pp,
 							'release_year'=>$ryear));
 					}
 				}			
