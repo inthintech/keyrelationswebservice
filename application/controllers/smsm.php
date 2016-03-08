@@ -651,10 +651,10 @@ class Smsm extends CI_Controller {
 		}
 		}
 		if($rating!=null){
-			return $rating;
+			echo $rating;
 		}
 		else{
-			return 'NA';
+			echo 'NA';
 		}
 		
 	}
