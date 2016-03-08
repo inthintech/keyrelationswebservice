@@ -639,27 +639,34 @@ class Smsm extends CI_Controller {
 		
 	}
 	
-	public function getIMDBRating($imdbID){
+	private function getIMDBRating($imdbID){
 		
-		$this->load->helper('dom');
-		//$html = file_get_contents('http://www.imdb.com/title/tt1431045/');
-		$html=file_get_html('http://www.imdb.com/title/'.$imdbID.'/');
-		/*
-		$rating=null;
-		if($html){
-		foreach($html->find('span[itemprop="ratingValue"]') as $e){
-			$rating=$e->innertext;
+		$service_url = 'http://www.omdbapi.com/?i='.$imdbID;
+		
+		//make the api call and store the response
+		$curl = curl_init($service_url);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+		$curl_response = curl_exec($curl);
+		$httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+		curl_close($curl);
+		//if the api call is failed
+		if ($curl_response == false) {
+			
+			return 'NA';
+
 		}
-		}
-		if($rating!=null){
-			echo $rating;
+		
+		if($httpcode==200){
+			$decoded = json_decode($curl_response);
+			return $decoded->imdbRating;	
 		}
 		else{
-			echo 'NA';
+			return 'NA';
+							
 		}
-		*/
-		//
 	}
+	
 }
 
 
