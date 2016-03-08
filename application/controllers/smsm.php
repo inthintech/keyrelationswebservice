@@ -642,6 +642,7 @@ class Smsm extends CI_Controller {
 	}
 	
 	public function getIMDBRating($imdbID){
+		/*
 		//$html = file_get_contents('http://www.imdb.com/title/tt1431045/');
 		$html=file_get_html('http://www.imdb.com/title/'.$imdbID.'/');
 		$rating=null;
@@ -656,7 +657,7 @@ class Smsm extends CI_Controller {
 		else{
 			echo 'NA';
 		}
-		
+		*/
 	}
 	
 }
