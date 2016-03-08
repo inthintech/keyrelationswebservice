@@ -358,9 +358,9 @@ class Smsm extends CI_Controller {
 					curl_close($curl);
 					$decoded = json_decode($curl_response);
 					$rating='NA';
-					if(isset($decoded->imdb_id)){
-						$rating=$this->getIMDBRating($decoded->imdb_id);
-					}
+					//if(isset($decoded->imdb_id)){
+					//	$rating=$this->getIMDBRating($decoded->imdb_id);
+					//}
 					$this->smsmdata->updateMovieData($decoded->id,$decoded->title,$decoded->poster_path,$decoded->release_date,$rating);
 					for($j=0;$j<count($decoded->genres);$j++)
 					{
