@@ -1072,6 +1072,7 @@ class simple_html_dom
         // end
         echo 'L2';
         $this->root->_[HDOM_INFO_END] = $this->cursor;
+        echo 'L3';
         $this->parse_charset();
 
         // make load function chainable
