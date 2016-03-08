@@ -1,5 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+include_once('simple_html_dom.php');
+
 class Smsm extends CI_Controller {
 
 	public function index()
@@ -353,7 +355,11 @@ class Smsm extends CI_Controller {
 			if($httpcode==200){
 					curl_close($curl);
 					$decoded = json_decode($curl_response);
-					$this->smsmdata->updateMovieData($decoded->id,$decoded->title,$decoded->poster_path,$decoded->release_date);
+					$rating='NA';
+					if(isset($decoded->imdb_id)){
+						$rating=$this->getIMDBRating($decoded->imdb_id);
+					}
+					$this->smsmdata->updateMovieData($decoded->id,$decoded->title,$decoded->poster_path,$decoded->release_date,$rating);
 					for($j=0;$j<count($decoded->genres);$j++)
 					{
 						$this->smsmdata->updateMovieGenreData($decoded->id,$decoded->genres[$j]->id);	
@@ -629,6 +635,22 @@ class Smsm extends CI_Controller {
 		$this->output->set_output(json_encode($output));
 		/******************** API End Module ********************/
 
+		
+	}
+	
+	private function getIMDBRating($imdbID){
+		//$html = file_get_contents('http://www.imdb.com/title/tt1431045/');
+		$html=file_get_html('http://www.imdb.com/title/'.$imdbID.'/');
+		$rating='';
+		foreach($html->find('span[itemprop="ratingValue"]') as $e){
+			$rating=$e->innertext;
+		}
+		if($rating!=null){
+			return $rating;
+		}
+		else{
+			return 'NA';
+		}
 		
 	}
 	

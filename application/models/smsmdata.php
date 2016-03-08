@@ -73,9 +73,9 @@ Class Smsmdata extends CI_Model
        }
     }
 	
-	public function updateMovieData($movieId,$name,$img,$year)
+	public function updateMovieData($movieId,$name,$img,$year,$rating)
     {
-		$query = $this->db->query("insert into smsm_movie(tmdb_movie_id,movie_name,movie_poster_image,release_year) values(".$movieId.",'".$name."','".$img."','".$year."')");
+		$query = $this->db->query("insert into smsm_movie(tmdb_movie_id,movie_name,movie_poster_image,release_year,imdb_rating) values(".$movieId.",'".$name."','".$img."','".$year."','".$rating."')");
 	}
 	
 	public function updateMovieUserData($movieId,$userId)
