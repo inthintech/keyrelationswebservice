@@ -267,7 +267,8 @@ class Smsm extends CI_Controller {
 						'poster_path'=>$row->movie_poster_image,
 						'release_year'=>$row->release_year,
 						'is_suggested'=>$row->is_suggested_f,
-						'imdb_rating'=>$row->imdb_rating
+						'imdb_rating'=>$row->imdb_rating,
+						'suggested_cnt'=>$row->suggested_cnt
 					));
 
 				} 
