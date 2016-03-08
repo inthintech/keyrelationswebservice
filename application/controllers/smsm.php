@@ -643,7 +643,7 @@ class Smsm extends CI_Controller {
 		
 		$this->load->helper('dom');
 		//$html = file_get_contents('http://www.imdb.com/title/tt1431045/');
-		$html=file_get_html('http://www.imdb.com/title/'.$imdbID.'/');
+		//$html=file_get_html('http://www.imdb.com/title/'.$imdbID.'/');
 		/*
 		$rating=null;
 		if($html){
