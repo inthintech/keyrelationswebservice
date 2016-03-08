@@ -660,7 +660,6 @@ class Smsm extends CI_Controller {
 		*/
 		//
 	}
-	
 }
 
 
