@@ -1,7 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-include_once('simple_html_dom.php');
-
 class Smsm extends CI_Controller {
 
 	public function index()
@@ -643,6 +641,7 @@ class Smsm extends CI_Controller {
 	
 	public function getIMDBRating($imdbID){
 		
+		$this->load->helper('simple_html_dom');
 		//$html = file_get_contents('http://www.imdb.com/title/tt1431045/');
 		$html=file_get_html('http://www.imdb.com/title/'.$imdbID.'/');
 		/*
