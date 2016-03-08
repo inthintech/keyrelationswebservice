@@ -132,7 +132,7 @@ Class Smsmdata extends CI_Model
 	public function returnUserLibrary($userId)
     {
         
-		$query = $this->db->query("select b.tmdb_movie_id,b.movie_name,b.movie_poster_image,b.release_year,is_suggested_f  
+		$query = $this->db->query("select b.tmdb_movie_id,b.movie_name,b.movie_poster_image,b.release_year,is_suggested_f,imdb_rating  
 from smsm_movieuser a
 join smsm_movie b
 on a.movie_id=b.movie_id
@@ -157,27 +157,27 @@ order by a.crte_ts desc");
 			
 			// most suggested movies
 			case 99:
-				$query = $this->db->query("select b.tmdb_movie_id,b.movie_name,b.movie_poster_image,b.release_year,COUNT(*) CNT  
+				$query = $this->db->query("select b.tmdb_movie_id,b.movie_name,b.movie_poster_image,b.release_year,imdb_rating,COUNT(*) CNT  
 from smsm_movieuser a
 join smsm_movie b
 on a.movie_id=b.movie_id
 where a.is_suggested_f='Y' and a.actv_f='Y' and a.movie_id not in
-(select movie_id from smsm_movieuser where user_id=".$userId.")
-group by b.tmdb_movie_id,b.movie_name,b.movie_poster_image,b.release_year
+(select movie_id from smsm_movieuser where actv_f='Y' and user_id=".$userId.")
+group by b.tmdb_movie_id,b.movie_name,b.movie_poster_image,b.release_year,imdb_rating
 order by CNT desc");
 				break;
 			
 			// movies suggested by genre
 			default:
-				$query = $this->db->query("select b.tmdb_movie_id,b.movie_name,b.movie_poster_image,b.release_year,COUNT(*) CNT  
+				$query = $this->db->query("select b.tmdb_movie_id,b.movie_name,b.movie_poster_image,b.release_year,imdb_rating,COUNT(*) CNT  
 from smsm_movieuser a
 join smsm_movie b
 on a.movie_id=b.movie_id
 join smsm_moviegenre c
 on b.movie_id=c.movie_id
 where c.genre_id=".$searchId." and a.is_suggested_f='Y' and a.actv_f='Y' and a.movie_id not in
-(select movie_id from smsm_movieuser where user_id=".$userId.")
-group by b.tmdb_movie_id,b.movie_name,b.movie_poster_image,b.release_year
+(select movie_id from smsm_movieuser where actv_f='Y' and user_id=".$userId.")
+group by b.tmdb_movie_id,b.movie_name,b.movie_poster_image,b.release_year,imdb_rating
 order by CNT desc");
 				break;
 			
