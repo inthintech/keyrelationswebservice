@@ -81,8 +81,10 @@ function file_get_html($url, $use_include_path = false, $context=null, $offset =
     {
         return false;
     }
+    echo 'L3';
     // The second parameter can force the selectors to all be lowercase.
     $dom->load($contents, $lowercase, $stripRN);
+    echo 'L4';
     return $dom;
 }
 
