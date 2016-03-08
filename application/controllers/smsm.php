@@ -339,7 +339,7 @@ class Smsm extends CI_Controller {
 			//make the api call and store the response
 			$curl = curl_init($service_url);
 			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+			//curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 			$curl_response = curl_exec($curl);
 			$httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 			
