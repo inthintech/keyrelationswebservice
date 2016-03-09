@@ -575,7 +575,8 @@ class Smsm extends CI_Controller {
 						'title'=>$row->movie_name,
 						'poster_path'=>$row->movie_poster_image,
 						'release_year'=>$row->release_year,
-						'suggested_by'=>$row->cnt
+						'imdb_rating'=>$row=>imdb_rating,
+						'suggested_cnt'=>$row->cnt
 					));
 
 				} 
