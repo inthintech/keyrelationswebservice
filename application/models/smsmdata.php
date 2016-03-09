@@ -158,7 +158,7 @@ order by a.crte_ts desc");
 			
 			// most suggested movies
 			case 99:
-				$query = $this->db->query("select b.tmdb_movie_id,b.movie_name,b.movie_poster_image,b.release_year,imdb_rating,COUNT(*) CNT  
+				$query = $this->db->query("select b.tmdb_movie_id,b.movie_name,b.movie_poster_image,b.release_year,imdb_rating,COUNT(*) cnt  
 from smsm_movieuser a
 join smsm_movie b
 on a.movie_id=b.movie_id
@@ -170,7 +170,7 @@ order by CNT desc");
 			
 			// movies suggested by genre
 			default:
-				$query = $this->db->query("select b.tmdb_movie_id,b.movie_name,b.movie_poster_image,b.release_year,imdb_rating,COUNT(*) CNT  
+				$query = $this->db->query("select b.tmdb_movie_id,b.movie_name,b.movie_poster_image,b.release_year,imdb_rating,COUNT(*) cnt  
 from smsm_movieuser a
 join smsm_movie b
 on a.movie_id=b.movie_id
