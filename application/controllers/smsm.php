@@ -523,7 +523,8 @@ class Smsm extends CI_Controller {
 							'id'=>$decoded->results[$i]->id,
 							'title'=>$decoded->results[$i]->title,
 							'poster_path'=>$pp,
-							'release_year'=>$ryear));
+							'release_year'=>$ryear,
+							'language'=>$decoded->results[$i]->original_language));
 						}
 					}
 				}			
