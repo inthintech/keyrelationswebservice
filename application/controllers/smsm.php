@@ -502,6 +502,7 @@ class Smsm extends CI_Controller {
 					$decoded = json_decode($curl_response);
 					for($i=0;$i<count($decoded->results);$i++)
 					{
+						if($decoded->results[$i]->original_language=='en'){
 						if(isset($decoded->results[$i]->release_date)&&$decoded->results[$i]->release_date!=""){
 							$ryear=substr($decoded->results[$i]->release_date,0,4);
 						}
@@ -521,6 +522,7 @@ class Smsm extends CI_Controller {
 							'title'=>$decoded->results[$i]->title,
 							'poster_path'=>$pp,
 							'release_year'=>$ryear));
+						}
 					}
 				}			
 		}
