@@ -673,6 +673,135 @@ class Smsm extends CI_Controller {
 		}
 	}
 	
+	public function getMovieInfo($movieId){
+		
+		/******************** API Start Module ********************/
+		$this->output->set_content_type('application/json');
+		$output = array();
+		$errCode = 0;
+		//$userId = $this->getUserId($accessToken);
+		$userAuthenticated = 1;
+		
+		$poster_path ='';
+		$backdrop_path = '';
+		$title = '';
+		$imdbId = '';
+		$ryear = '';
+		
+		$imdb_rating = '';
+		$genre = '';
+		$director = '';
+		$actor = '';
+		$plot = '';
+		
+		/* REMOVING THE USER AUTHENTICATION FOR NOW 
+		
+		if($userId){
+			$userAuthenticated = 1;
+		}
+		else{
+			array_push($output,array(
+					'error'=>'unable to authenticate user'
+				));
+			$errCode=1;
+		}
+		*/
+		
+		/******************** API Start Module ********************/
+		
+		if($userAuthenticated==1){
+			
+			// continue the module only if user is authenticated
+			
+			$service_url = 'https://api.themoviedb.org/3/movie/'.$movieId.'?api_key='.$this->tmdbApiKey;
+			//echo $service_url;
+
+			//make the api call and store the response
+			$curl = curl_init($service_url);
+			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+			$curl_response = curl_exec($curl);
+			$httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+			
+			//if the api call is failed
+			if ($curl_response == false) {
+			    
+			    curl_close($curl);
+				$errCode=1;
+
+			}
+			if($httpcode==200){
+					curl_close($curl);
+					$decoded = json_decode($curl_response);
+					
+					if(isset($decoded->release_date)&&$decoded->release_date!=""){
+							$ryear=substr($decoded->release_date,0,4);
+						}
+					else{
+						$ryear = 'NA';
+					}
+					$poster_path = $decoded->poster_path;
+					$backdrop_path = $decoded->backdrop_path;
+					$title = $decoded->original_title;
+					$imdbId = $decoded->imdb_id;
+						
+			}
+			
+			$service_url = 'http://www.omdbapi.com/?i='.$imdbId;
+			//echo $service_url;
+
+			//make the api call and store the response
+			$curl = curl_init($service_url);
+			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+			$curl_response = curl_exec($curl);
+			$httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+			
+			//if the api call is failed
+			if ($curl_response == false) {
+			    
+			    curl_close($curl);
+				
+				
+			}
+			if($httpcode==200){
+					curl_close($curl);
+					$decoded = json_decode($curl_response);
+					
+					$imdb_rating = $decoded->imdbRating;
+					$genre = $decoded->Genre;
+					$director = $decoded->Director;
+					$actor = $decoded->Actors;
+					$plot = $decoded->Plot;
+						
+			}
+			
+			array_push($output,array(
+					'poster_path'=>$poster_path,
+					'backdrop_path'=>$backdrop_path,
+					'title'=>$title,
+					'ryear'=>$ryear,
+					'imdb_rating'=>$imdb_rating,
+					'genre'=>$genre,
+					'director'=>$director,
+					'actor'=>$actor,
+					'plot'=>$plot
+				));
+			
+			
+		}
+		
+		
+		/******************** API End Module ********************/
+		if($errCode<>0){
+			$this->output->set_status_header('401');
+		}
+		$this->output->set_output(json_encode($output));
+		/******************** API End Module ********************/
+
+		
+	}
+	
 }
 
 
