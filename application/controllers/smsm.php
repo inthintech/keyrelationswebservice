@@ -311,7 +311,7 @@ class Smsm extends CI_Controller {
 			// continue the module only if user is authenticated
 			
 			//check if movie exists in db
-		if($this->smsmdata->returnMovieData($movieId)==true){
+		if($this->smsmdata->returnMovieData($movieId)==false){
 			
 			// if the movie exist in db
 			
@@ -357,11 +357,22 @@ class Smsm extends CI_Controller {
 			if($httpcode==200){
 					curl_close($curl);
 					$decoded = json_decode($curl_response);
-					$rating='NA';
-					if(isset($decoded->imdb_id)){
-						$rating=$this->getIMDBRating($decoded->imdb_id);
+					
+					$service_url = 'http://www.omdbapi.com/?i='.$imdbID;
+		
+					//make the api call and store the response
+					$curl = curl_init($service_url);
+					curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+					curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+					$curl_response = curl_exec($curl);
+					$httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+					curl_close($curl);
+					//if the api call is failed
+					if ($curl_response == false) {
 					}
-					$this->smsmdata->updateMovieData($decoded->id,$decoded->title,$decoded->poster_path,$decoded->release_date,$rating);
+					$OMDBdecoded = json_decode($curl_response);
+					
+					$this->smsmdata->updateMovieData($decoded->id,$decoded->title,$decoded->poster_path,$decoded->backdrop_path,$decoded->release_date,$OMDBdecoded->imdbID,$OMDBdecoded->imdbRating,$OMDBdecoded->Plot,$OMDBdecoded->Genre,$OMDBdecoded->Director,$OMDBdecoded->Actors);
 					for($j=0;$j<count($decoded->genres);$j++)
 					{
 						$this->smsmdata->updateMovieGenreData($decoded->id,$decoded->genres[$j]->id);	

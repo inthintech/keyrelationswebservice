@@ -73,9 +73,22 @@ Class Smsmdata extends CI_Model
        }
     }
 	
-	public function updateMovieData($movieId,$name,$img,$year,$rating)
+	public function updateMovieData($id,$title,$poster_path,$backdrop_path,$release_date,$OMDBimdbID,$OMDBimdbRating,$OMDBPlot,$OMDBGenre,$OMDBDirector,$OMDBActors)
     {
-		$query = $this->db->query("insert into smsm_movie(tmdb_movie_id,movie_name,movie_poster_image,release_year,imdb_rating) values(".$movieId.",'".str_replace("'", "", $name)."','".$img."','".$year."','".$rating."')");
+		$query = $this->db->query("select movie_id from smsm_movie where tmdb_movie_id=".$movieId);
+		
+		if($query->num_rows()>=1)
+       {
+          $query = $this->db->query("update smsm_movie set movie_backdrop_image=".$backdrop_path.",imdb_id=".$OMDBimdbID.",omdb_genre=".$OMDBGenre.",omdb_story_synopsis=".$OMDBPlot.",omdb_directed_by=".$OMDBDirector.",omdb_actors=".$OMDBActors." where tmdb_movie_id=".$id);
+       }
+       else
+       {
+          
+		  $query = $this->db->query("insert into smsm_movie(tmdb_movie_id,movie_name,movie_poster_image,movie_backdrop_image,release_year,imdb_rating,imdb_id,omdb_genre,omdb_story_synopsis,omdb_directed_by,omdb_actors) values(".$id.",'".str_replace("'", "", $title)."','".$poster_path."','".$backdrop_path."','".$release_date."','".$OMDBimdbRating."','".$OMDBimdbID."','".$OMDBGenre."','".$OMDBPlot."','".$OMDBDirector."','".$OMDBActors."')");
+          
+       }
+		
+		
 	}
 	
 	public function updateMovieUserData($movieId,$userId)
