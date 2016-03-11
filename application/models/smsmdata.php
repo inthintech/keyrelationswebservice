@@ -75,7 +75,7 @@ Class Smsmdata extends CI_Model
 	
 	public function updateMovieData($id,$title,$poster_path,$backdrop_path,$release_date,$OMDBimdbID,$OMDBimdbRating,$OMDBPlot,$OMDBGenre,$OMDBDirector,$OMDBActors)
     {
-		$query = $this->db->query("select movie_id from smsm_movie where tmdb_movie_id=".$movieId);
+		$query = $this->db->query("select movie_id from smsm_movie where tmdb_movie_id=".$id);
 		
 		if($query->num_rows()>=1)
        {
