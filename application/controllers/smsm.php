@@ -358,19 +358,19 @@ class Smsm extends CI_Controller {
 					curl_close($curl);
 					$decoded = json_decode($curl_response);
 					
-					$service_url = 'http://www.omdbapi.com/?i='.$imdbID;
+					$service_url = 'http://www.omdbapi.com/?i='.$decoded->imdb_id;
 		
 					//make the api call and store the response
 					$curl = curl_init($service_url);
 					curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 					curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-					$curl_response = curl_exec($curl);
+					$omdb_curl_response = curl_exec($curl);
 					$httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 					curl_close($curl);
 					//if the api call is failed
 					if ($curl_response == false) {
 					}
-					$OMDBdecoded = json_decode($curl_response);
+					$OMDBdecoded = json_decode($omdb_curl_response);
 					
 					$this->smsmdata->updateMovieData($decoded->id,$decoded->title,$decoded->poster_path,$decoded->backdrop_path,$decoded->release_date,$OMDBdecoded->imdbID,$OMDBdecoded->imdbRating,$OMDBdecoded->Plot,$OMDBdecoded->Genre,$OMDBdecoded->Director,$OMDBdecoded->Actors);
 					for($j=0;$j<count($decoded->genres);$j++)
