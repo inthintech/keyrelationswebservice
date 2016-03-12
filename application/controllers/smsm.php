@@ -311,7 +311,7 @@ class Smsm extends CI_Controller {
 			// continue the module only if user is authenticated
 			
 			//check if movie exists in db
-		if($this->smsmdata->returnMovieData($movieId)==false){
+		if($this->smsmdata->returnMovieData($movieId)==true){
 			
 			// if the movie exist in db
 			
@@ -812,6 +812,50 @@ class Smsm extends CI_Controller {
 
 		
 	}
+	
+	/*
+	public function getGenreData(){
+		
+		
+			$query = $this->db->query("select tmdb_movie_id from smsm_movie");
+			$result = $query->result();
+			foreach($result as $row)
+			{
+			  //$dbMovieId = $row->movie_id;
+			
+			$service_url = 'https://api.themoviedb.org/3/movie/'.$row->tmdb_movie_id.'?api_key='.$this->tmdbApiKey;
+			//echo $service_url;
+
+			//make the api call and store the response
+			$curl = curl_init($service_url);
+			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+			$curl_response = curl_exec($curl);
+			$httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+			
+			//if the api call is failed
+			if ($curl_response == false) {
+			    //$info = curl_getinfo($curl);
+			    //curl_close($curl);
+				//$this->output->set_status_header('503');
+				array_push($output,array(
+					'error'=>'tmdb api call failed'
+				));
+				$this->output->set_status_header('500');
+
+			}
+			if($httpcode==200){
+					curl_close($curl);
+					$decoded = json_decode($curl_response);	
+					for($j=0;$j<count($decoded->genres);$j++)
+					{
+						$this->smsmdata->updateMovieGenreData($decoded->id,$decoded->genres[$j]->id);	
+					}		
+					
+				}
+		
+			}
+	}*/
 	
 }
 
