@@ -84,7 +84,7 @@ Class Smsmdata extends CI_Model
        else
        {
           
-		  $query = $this->db->query("insert into smsm_movie(tmdb_movie_id,movie_name,movie_poster_image,movie_backdrop_image,release_year,imdb_rating,imdb_id,omdb_genre,omdb_story_synopsis,omdb_directed_by,omdb_actors) values(".$id.",'".str_replace("'", "", $title)."','".$poster_path."','".$backdrop_path."','".$release_date."','".$OMDBimdbRating."','".$OMDBimdbID."','".$OMDBGenre."','".str_replace("'", "", $OMDBPlot)."','".$OMDBDirector."','".$OMDBActors."')");
+		  $query = $this->db->query("insert into smsm_movie(tmdb_movie_id,movie_name,movie_poster_image,movie_backdrop_image,release_year,imdb_rating,imdb_id,omdb_genre,omdb_story_synopsis,omdb_directed_by,omdb_actors) values(".$id.",'".str_replace("'", "", $title)."','".$poster_path."','".$backdrop_path."','".$release_date."','".$OMDBimdbRating."','".$OMDBimdbID."','".$OMDBGenre."','".str_replace("'", "", $OMDBPlot)."','".str_replace("'", "", $OMDBDirector)."','".str_replace("'", "", $OMDBActors)."')");
           
        }
 		
