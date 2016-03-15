@@ -142,6 +142,24 @@ Class Smsmdata extends CI_Model
         
     }
 	
+	public function returnMovieInfo($movieId)
+    {
+        
+		$query = $this->db->query("select movie_poster_image,movie_backdrop_image,movie_name,release_year,imdb_rating, 
+omdb_genre,omdb_directed_by,omdb_actors,omdb_story_synopsis
+from smsm_movie where tmdb_movie_id=".$movieId);
+		
+		if($query->num_rows()==1)
+       {
+          return $query->result();
+       }
+       else
+       {
+          return false;
+       }
+	
+    }
+	
 	public function returnUserLibrary($userId)
     {
         

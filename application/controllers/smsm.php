@@ -684,14 +684,14 @@ class Smsm extends CI_Controller {
 		}
 	}
 	
-	public function getMovieInfo($movieId){
+	public function getMovieInfo($accessToken,$movieId){
 		
 		/******************** API Start Module ********************/
 		$this->output->set_content_type('application/json');
 		$output = array();
 		$errCode = 0;
-		//$userId = $this->getUserId($accessToken);
-		$userAuthenticated = 1;
+		$userId = $this->getUserId($accessToken);
+		$userAuthenticated = 0;
 		
 		$poster_path ='';
 		$backdrop_path = '';
@@ -705,7 +705,7 @@ class Smsm extends CI_Controller {
 		$actor = '';
 		$plot = '';
 		
-		/* REMOVING THE USER AUTHENTICATION FOR NOW 
+		
 		
 		if($userId){
 			$userAuthenticated = 1;
@@ -716,11 +716,14 @@ class Smsm extends CI_Controller {
 				));
 			$errCode=1;
 		}
-		*/
+		
 		
 		/******************** API Start Module ********************/
 		
 		if($userAuthenticated==1){
+			
+			
+			/*
 			
 			// continue the module only if user is authenticated
 			
@@ -786,20 +789,29 @@ class Smsm extends CI_Controller {
 					$plot = $decoded->Plot;
 						
 			}
+			*/
 			
-			array_push($output,array(
-					'poster_path'=>$poster_path,
-					'backdrop_path'=>$backdrop_path,
-					'title'=>$title,
-					'ryear'=>$ryear,
-					'imdb_rating'=>$imdb_rating,
-					'genre'=>$genre,
-					'director'=>$director,
-					'actor'=>$actor,
-					'plot'=>$plot
+			$result = $this->smsmdata->returnMovieInfo($movieId);
+			
+			if($result)
+			{
+				foreach($result as $row)
+				{
+					array_push($output,array(
+					'poster_path'=>$row->movie_poster_image,
+					'backdrop_path'=>$row->movie_backdrop_image,
+					'title'=>$row->movie_name,
+					'ryear'=>$row->release_year,
+					'imdb_rating'=>$row->imdb_rating,
+					'genre'=>$row->omdb_genre,
+					'director'=>$row->omdb_directed_by,
+					'actor'=>$row->omdb_actors,
+					'plot'=>$row->omdb_story_synopsis
 				));
-			
-			
+
+				} 
+			}
+				
 		}
 		
 		
