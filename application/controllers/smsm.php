@@ -690,9 +690,9 @@ class Smsm extends CI_Controller {
 		$this->output->set_content_type('application/json');
 		$output = array();
 		$errCode = 0;
-		$userId = $this->getUserId($accessToken);
-		$userAuthenticated = 0;
-		
+		//$userId = $this->getUserId($accessToken);
+		//$userAuthenticated = 0;
+		$userAuthenticated = 1;
 		$poster_path ='';
 		$backdrop_path = '';
 		$title = '';
@@ -706,7 +706,7 @@ class Smsm extends CI_Controller {
 		$plot = '';
 		
 		
-		
+		/*
 		if($userId){
 			$userAuthenticated = 1;
 		}
@@ -716,7 +716,7 @@ class Smsm extends CI_Controller {
 				));
 			$errCode=1;
 		}
-		
+		*/
 		
 		/******************** API Start Module ********************/
 		
