@@ -486,7 +486,7 @@ class Smsm extends CI_Controller {
 			// continue the module only if user is authenticated
 			
 			
-			$service_url = 'https://api.themoviedb.org/3/search/movie?api_key='.$this->tmdbApiKey.'&query='.preg_replace("/[^a-zA-Z0-9]+/", "", $movieName).'&page=1';
+			$service_url = 'https://api.themoviedb.org/3/search/movie?api_key='.$this->tmdbApiKey.'&query='.$movieName.'&page=1';
 			//echo $service_url;
 			//echo $service_url;
 
