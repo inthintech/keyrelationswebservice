@@ -76,7 +76,7 @@ class Ytm extends CI_Controller {
 				array_push($output,array(
 					'name'=>$row->movie_name,
 					'release_year'=>$row->release_year,
-					'link'=>"https://www.youtube.com/watch?v=".$row->youtube_link
+					'link'=>$row->youtube_link
 				));
 
 			}

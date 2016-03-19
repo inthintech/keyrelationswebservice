@@ -116,7 +116,7 @@ join ytm_director e
 on a.director_id=e.director_id
 join ytm_genre f
 on a.genre_id=f.genre_id
-where a.language_id=".$lang." order by movie_name");
+where a.actv_f='Y' and a.language_id=".$lang." order by movie_name");
 				break;
 			case 1://genre
 				 $query = $this->db->query("select movie_name,release_year,youtube_link from ytm_movie a
@@ -130,7 +130,7 @@ join ytm_director e
 on a.director_id=e.director_id
 join ytm_genre f
 on a.genre_id=f.genre_id
-where a.language_id=".$lang." and a.genre_id=".$filterId." order by movie_name");
+where a.actv_f='Y' and a.language_id=".$lang." and a.genre_id=".$filterId." order by movie_name");
 				break;
 			case 2://actor
 				$query = $this->db->query("select movie_name,release_year,youtube_link from ytm_movie a
@@ -144,7 +144,7 @@ join ytm_director e
 on a.director_id=e.director_id
 join ytm_genre f
 on a.genre_id=f.genre_id
-where a.language_id=".$lang." and a.male_lead_id=".$filterId." order by movie_name");
+where a.actv_f='Y' and a.language_id=".$lang." and a.male_lead_id=".$filterId." order by movie_name");
 				break;
 			case 3://actress
 				$query = $this->db->query("select movie_name,release_year,youtube_link from ytm_movie a
@@ -158,7 +158,7 @@ join ytm_director e
 on a.director_id=e.director_id
 join ytm_genre f
 on a.genre_id=f.genre_id
-where a.language_id=".$lang." and a.female_lead_id=".$filterId." order by movie_name");
+where a.actv_f='Y' and a.language_id=".$lang." and a.female_lead_id=".$filterId." order by movie_name");
 				break;
 			case 4://director
 				$query = $this->db->query("select movie_name,release_year,youtube_link from ytm_movie a
@@ -172,7 +172,7 @@ join ytm_director e
 on a.director_id=e.director_id
 join ytm_genre f
 on a.genre_id=f.genre_id
-where a.language_id=".$lang." and a.director_id=".$filterId." order by movie_name");
+where a.actv_f='Y' and a.language_id=".$lang." and a.director_id=".$filterId." order by movie_name");
 				break;
 			case 5://release year
 				$query = $this->db->query("select movie_name,release_year,youtube_link from ytm_movie a
@@ -186,7 +186,7 @@ join ytm_director e
 on a.director_id=e.director_id
 join ytm_genre f
 on a.genre_id=f.genre_id
-where a.language_id=".$lang." and a.release_year_id=".$filterId." order by movie_name");
+where a.actv_f='Y' and a.language_id=".$lang." and a.release_year_id=".$filterId." order by movie_name");
 				break;
             default :
                 show_404();
