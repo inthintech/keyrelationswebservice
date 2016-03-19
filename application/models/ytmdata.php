@@ -99,6 +99,111 @@ order by b.release_year");
           
        }
     }
+	
+	public function returnMovieList($type,$lang,$filterId)
+    {
+        switch($type){
+			
+			case 0://all
+				 $query = $this->db->query("select movie_name,release_year,youtube_link from ytm_movie a
+join ytm_release_year b
+on a.release_year_id=b.release_year_id
+join ytm_male_lead c
+on a.male_lead_id=c.male_lead_id
+join ytm_female_lead d
+on a.female_lead_id=d.female_lead_id
+join ytm_director e
+on a.director_id=e.director_id
+join ytm_genre f
+on a.genre_id=f.genre_id
+where a.language_id=".$lang);
+				break;
+			case 1://genre
+				 $query = $this->db->query("select movie_name,release_year,youtube_link from ytm_movie a
+join ytm_release_year b
+on a.release_year_id=b.release_year_id
+join ytm_male_lead c
+on a.male_lead_id=c.male_lead_id
+join ytm_female_lead d
+on a.female_lead_id=d.female_lead_id
+join ytm_director e
+on a.director_id=e.director_id
+join ytm_genre f
+on a.genre_id=f.genre_id
+where a.language_id=".$lang." and genre_id=".$filterId);
+				break;
+			case 2://actor
+				$query = $this->db->query("select movie_name,release_year,youtube_link from ytm_movie a
+join ytm_release_year b
+on a.release_year_id=b.release_year_id
+join ytm_male_lead c
+on a.male_lead_id=c.male_lead_id
+join ytm_female_lead d
+on a.female_lead_id=d.female_lead_id
+join ytm_director e
+on a.director_id=e.director_id
+join ytm_genre f
+on a.genre_id=f.genre_id
+where a.language_id=".$lang." and male_lead_id=".$filterId);
+				break;
+			case 3://actress
+				$query = $this->db->query("select movie_name,release_year,youtube_link from ytm_movie a
+join ytm_release_year b
+on a.release_year_id=b.release_year_id
+join ytm_male_lead c
+on a.male_lead_id=c.male_lead_id
+join ytm_female_lead d
+on a.female_lead_id=d.female_lead_id
+join ytm_director e
+on a.director_id=e.director_id
+join ytm_genre f
+on a.genre_id=f.genre_id
+where a.language_id=".$lang." and female_lead_id=".$filterId);
+				break;
+			case 4://director
+				$query = $this->db->query("select movie_name,release_year,youtube_link from ytm_movie a
+join ytm_release_year b
+on a.release_year_id=b.release_year_id
+join ytm_male_lead c
+on a.male_lead_id=c.male_lead_id
+join ytm_female_lead d
+on a.female_lead_id=d.female_lead_id
+join ytm_director e
+on a.director_id=e.director_id
+join ytm_genre f
+on a.genre_id=f.genre_id
+where a.language_id=".$lang." and director_id=".$filterId);
+				break;
+			case 5://release year
+				$query = $this->db->query("select movie_name,release_year,youtube_link from ytm_movie a
+join ytm_release_year b
+on a.release_year_id=b.release_year_id
+join ytm_male_lead c
+on a.male_lead_id=c.male_lead_id
+join ytm_female_lead d
+on a.female_lead_id=d.female_lead_id
+join ytm_director e
+on a.director_id=e.director_id
+join ytm_genre f
+on a.genre_id=f.genre_id
+where a.language_id=".$lang." and release_year_id=".$filterId);
+				break;
+            default :
+                show_404();
+                exit;
+			
+		}
+       
+        if($query)
+       {
+          return $query->result();
+       }
+       else
+       {
+          return false;
+          
+       }
+    }
     
     public function insertNewMovie($name,$year,$link,$actor,$actress,$director,$genre,$language)
     {
