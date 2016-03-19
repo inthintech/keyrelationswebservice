@@ -64,7 +64,7 @@ class Ytm extends CI_Controller {
 	
 	}
 	
-	public function getMovieList($type,$lang,$filterId)
+	public function getMovieList($type,$filterId,$lang)
 	{
 		//type = 0 for all movies
 		$this->output->set_content_type('application/json');
