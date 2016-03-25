@@ -196,7 +196,7 @@ on a.movie_id=b.movie_id
 where a.is_suggested_f='Y' and a.actv_f='Y' and a.movie_id not in
 (select movie_id from smsm_movieuser where actv_f='Y' and user_id=".$userId.")
 group by b.tmdb_movie_id,b.movie_name,b.movie_poster_image,b.release_year,imdb_rating
-order by CNT desc");
+order by CNT desc LIMIT 50");
 				break;
 			
 			// movies suggested by genre
