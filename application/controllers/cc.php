@@ -91,6 +91,70 @@ class Cc extends CI_Controller {
 		echo 'No key is found.';
 	}
 	}
+	
+	public function updateplayers($key){
+		
+		set_time_limit(10000000);
+		
+		$output = array();
+		
+		// india
+		
+		array_push($output,6609); //ms dhoni
+		array_push($output,6939); //v kohli
+		
+		if(isset($key)){
+		if($key=='49b35ae23cb2dce9b78b40d209149e28'){
+			
+			for($i=0;$i<count($output);$i++){
+				//echo $output[$i];
+				
+				$service_url = 'http://msapi.pulselive.com/prapi/data?scope=T20&pid='.$output[$i];
+				$nat = '';
+				$batRating = 0;
+				$batRank = 0;
+				$bowlRating = 0;
+				$bowlRank = 0;
+				
+				//make the api call and store the response
+				$curl = curl_init($service_url);
+				curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+				$curl_response = curl_exec($curl);
+				curl_close($curl);
+				
+				if ($curl_response) {
+					$decoded = json_decode($curl_response);
+					$nat = $decoded->playerEvents->nationality;
+					for($j=count($decoded->playerEvents->events)-1;$j<count($decoded->playerEvents->events);$j++){
+						$batRating = $decoded->playerEvents->events[$j]->battingRating;
+						$batRank = $decoded->playerEvents->events[$j]->battingRanking;
+						$bowlRating = $decoded->playerEvents->events[$j]->bowlingRating;
+						$bowlRank = $decoded->playerEvents->events[$j]->bowlingRanking;
+					}
+					
+					$query = $this->db->query("select icc_player_id from cc_player_attributes where icc_player_id=".$output[$i]);
+					
+					if($query->num_rows()==0)
+					{
+					   $query = $this->db->query("insert into cc_player_attributes(icc_player_id,player_nationality,player_batting_rating,player_batting_ranking,player_bowling_rating,player_bowling_ranking,updt_ts) values(".$output[$i].",'".str_replace("'", "", $nat)."',".$batRating.",".$batRank.",".$bowlRating.",".$bowlRank.",CURRENT_TIMESTAMP)");
+					}
+					else{
+						$query = $this->db->query("update cc_player_attributes set player_nationality='".$nat."',player_batting_rating=".$batRating.",player_batting_ranking=".$batRank.",player_bowling_rating=".$bowlRating.",player_bowling_ranking=".$bowlRank.",updt_ts=CURRENT_TIMESTAMP where icc_player_id=".$output[$i]);
+					}
+					
+				}
+			}
+			echo 'Player update done.';
+		}
+		else{
+			echo 'Authentication Failed. Unable to proceed.';
+		}
+	}
+	else{
+		echo 'No key is found.';
+	}
+	}
 	/*
 	// do not use language parameters since the cast and director are aplicable for all language.
 	public function addMovie($fbId,$movieId)
