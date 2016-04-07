@@ -102,6 +102,31 @@ class Cc extends CI_Controller {
 		
 		array_push($output,6609); //ms dhoni
 		array_push($output,6939); //v kohli
+		array_push($output,6796); //rohit
+		array_push($output,7140); //dhawan
+		array_push($output,7103); //ashwin
+		array_push($output,2251); //nehra
+		
+		// australia
+		
+		array_push($output,6395); //shane watson
+		array_push($output,7074); //steve smith
+		
+		// pakistan
+		
+		// west indies
+		
+		// new zealand
+		
+		// south africa
+		
+		// bangladesh
+		
+		// srilanka
+		
+		// england
+		
+		// 
 		
 		if(isset($key)){
 		if($key=='49b35ae23cb2dce9b78b40d209149e28'){
