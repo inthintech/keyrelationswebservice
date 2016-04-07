@@ -111,6 +111,9 @@ class Cc extends CI_Controller {
 		
 		array_push($output,6395); //shane watson
 		array_push($output,7074); //steve smith
+		array_push($output,6977); //david warner
+		array_push($output,7149); //Aaron Finch
+		array_push($output,7267); //Glenn Maxwell
 		
 		// pakistan
 		
