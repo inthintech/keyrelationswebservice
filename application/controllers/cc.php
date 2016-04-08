@@ -308,15 +308,21 @@ class Cc extends CI_Controller {
 		//zimbabwe	
 			
 		array_push($output,2377); // Hamilton Masakadza
+		array_push($output,6982); // Malcolm Waller
 		
 		
 		}
 		
 		if($teamId==11){
 		
-		//uae
+		//afganistan
 			
-		array_push($output,2377); // Mohammad Shahzad
+		array_push($output,7043); // Mohammad Shahzad
+		array_push($output,7172); // Michael Swart
+		array_push($output,7116); // Wesley Barresi
+		array_push($output,6724); // Peter Borren
+		array_push($output,7003); // Asghar Stanikzai
+		
 		}
 		
 		if($teamId==12){
@@ -326,6 +332,20 @@ class Cc extends CI_Controller {
 		array_push($output,7195); // Stephan Myburgh
 		}
 		
+		if($teamId==12){
+		
+		//scotland
+			
+		array_push($output,6940); // Kyle Coetzer
+		array_push($output,6933); // Richard Berrington
+		}
+		
+		if($teamId==13){
+		
+		//ireland
+			
+		array_push($output,6927); // Paul Stirling
+		}
 		
 		if(isset($key)){
 		if($key=='49b35ae23cb2dce9b78b40d209149e28'){
