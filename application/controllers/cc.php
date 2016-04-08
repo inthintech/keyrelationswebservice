@@ -149,21 +149,21 @@ class Cc extends CI_Controller {
 		
 		// pakistan
 		
-		array_push($output,6395); // Anwar Ali
-		array_push($output,7074); // Wahab Riaz
-		array_push($output,6977); // Shoaib Malik
-		array_push($output,7149); // Mohammad Irfan
-		array_push($output,7267); // Mohammad Amir
-		array_push($output,2846); // Imad Wasim
-		array_push($output,7228); // Shahid Afridi
-		array_push($output,7138); // Mohammad Hafeez
-		array_push($output,2747); // Mohammad Nawaz
-		array_push($output,7584); // Sarfraz Ahmed
-		array_push($output,7594); // Umar Akmal
-		array_push($output,2919); // Mohammad Sami
-		array_push($output,7215); // Sharjeel Khan
-		array_push($output,7112); // Khalid Latif
-		array_push($output,7295); // Ahmed Shehzad
+		array_push($output,6972); // Anwar Ali
+		array_push($output,6873); // Wahab Riaz
+		array_push($output,6264); // Shoaib Malik
+		array_push($output,7131); // Mohammad Irfan
+		array_push($output,2679); // Mohammad Amir
+		array_push($output,7477); // Imad Wasim
+		array_push($output,2237); // Shahid Afridi
+		array_push($output,6476); // Mohammad Hafeez
+		array_push($output,7601); // Mohammad Nawaz
+		array_push($output,6858); // Sarfraz Ahmed
+		array_push($output,7037); // Umar Akmal
+		array_push($output,2353); // Mohammad Sami
+		array_push($output,7349); // Sharjeel Khan
+		array_push($output,6864); // Khalid Latif
+		array_push($output,7011); // Ahmed Shehzad
 		
 		}
 		
@@ -171,22 +171,22 @@ class Cc extends CI_Controller {
 		
 		// west indies
 		
-		array_push($output,6395); // Darren Sammy
-		array_push($output,7074); // Samuel Badree
-		array_push($output,6977); // Sulieman Benn
-		array_push($output,7149); // Dwayne Bravo
-		array_push($output,7267); // Andre Fletcher
-		array_push($output,2846); // Chris Gayle
-		array_push($output,7228); // Jason Holder
-		array_push($output,7138); // Denesh Ramdin
-		array_push($output,2747); // Andre Russell
-		array_push($output,7584); // Marlon Samuels
-		array_push($output,7594); // Jerome Taylor
-		array_push($output,2919); // Carlos Brathwaite
-		array_push($output,7215); // Ashley Nurse
-		array_push($output,7112); // Johnson Charles
-		array_push($output,7295); // Evin Lewis
-		array_push($output,7295); // Lendl Simmons
+		array_push($output,6550); // Darren Sammy
+		array_push($output,7256); // Samuel Badree
+		array_push($output,2635); // Sulieman Benn
+		array_push($output,6534); // Dwayne Bravo
+		array_push($output,6894); // Andre Fletcher
+		array_push($output,2303); // Chris Gayle
+		array_push($output,7292); // Jason Holder	//double entry
+		array_push($output,2553); // Denesh Ramdin
+		array_push($output,2739); // Andre Russell
+		array_push($output,2344); // Marlon Samuels
+		array_push($output,6496); // Jerome Taylor	
+		array_push($output,7211); // Carlos Brathwaite //double entry
+		array_push($output,7165); // Ashley Nurse
+		array_push($output,7207); // Johnson Charles
+		//array_push($output,7295); // Evin Lewis // cannot find
+		array_push($output,6766); // Lendl Simmons
 		
 		}
 		
@@ -194,21 +194,21 @@ class Cc extends CI_Controller {
 		
 		// new zealand
 		
-		array_push($output,6395); // Kane Williamson
-		array_push($output,7074); // Martin Guptill
-		array_push($output,6977); // Trent Boult
-		array_push($output,7149); // Nathan McCullum
-		array_push($output,7267); // Colin Munro
-		array_push($output,2846); // Luke Ronchi
-		array_push($output,7228); // Ish Sodhi
-		array_push($output,7138); // Ross Taylor
-		array_push($output,2747); // Corey Anderson
-		array_push($output,7584); // Grant Elliott
-		array_push($output,7594); // Mitchell McClenaghan
-		array_push($output,2919); // Adam Milne
-		array_push($output,7215); // Henry Nicholls
-		array_push($output,7112); // Mitchell Santner
-		array_push($output,7295); // Tim Southee
+		array_push($output,7127); // Kane Williamson
+		array_push($output,6963); // Martin Guptill
+		array_push($output,2791); // Trent Boult
+		array_push($output,6832); // Nathan McCullum
+		array_push($output,7277); // Colin Munro
+		array_push($output,6914); // Luke Ronchi
+		array_push($output,7409); // Ish Sodhi //double entry
+		array_push($output,6663); // Ross Taylor
+		array_push($output,7276); // Corey Anderson
+		array_push($output,6892); // Grant Elliott //double entry
+		array_push($output,7278); // Mitchell McClenaghan
+		array_push($output,7145); // Adam Milne
+		array_push($output,7567); // Henry Nicholls
+		array_push($output,7482); // Mitchell Santner
+		array_push($output,6875); // Tim Southee
 		
 		}
 		
@@ -216,21 +216,21 @@ class Cc extends CI_Controller {
 		
 		// south africa
 		
-		array_push($output,6395); // Faf du Plessis
-		array_push($output,7074); // Hashim Amla
-		array_push($output,6977); // Quinton de Kock
-		array_push($output,7149); // Jean-Paul Duminy
-		array_push($output,7267); // David Miller
-		array_push($output,2846); // Aaron Phangiso
-		array_push($output,7228); // Rilee Rossouw
-		array_push($output,7138); // David Wiese
-		array_push($output,2747); // Kyle Abbott
-		array_push($output,7584); // Farhaan Behardien
-		array_push($output,7594); // AB de Villiers
-		array_push($output,2919); // Imran Tahir
-		array_push($output,7215); // Chris Morris
-		array_push($output,7112); // Kagiso Rabada
-		array_push($output,7295); // Dale Steyn
+		array_push($output,7150); // Faf du Plessis
+		array_push($output,2540); // Hashim Amla
+		array_push($output,7281); // Quinton de Kock
+		array_push($output,6579); // Jean-Paul Duminy
+		array_push($output,7098); // David Miller
+		array_push($output,7284); // Aaron Phangiso
+		array_push($output,7418); // Rilee Rossouw
+		array_push($output,7326); // David Wiese
+		array_push($output,7297); // Kyle Abbott //double entry
+		array_push($output,7251); // Farhaan Behardien
+		array_push($output,2541); // AB de Villiers
+		array_push($output,7156); // Imran Tahir
+		array_push($output,7282); // Chris Morris
+		array_push($output,7434); // Kagiso Rabada
+		array_push($output,2542); // Dale Steyn
 		
 		}
 		
@@ -238,23 +238,23 @@ class Cc extends CI_Controller {
 		
 		// bangladesh
 		
-		array_push($output,6395); // Mashrafe Mortaza
-		array_push($output,7074); // Abu Hider
-		array_push($output,6977); // Arafat Sunny
-		array_push($output,7149); // Mohammad Mithun
-		array_push($output,7267); // Nurul Hasan
-		array_push($output,2846); // Soumya Sarkar
-		array_push($output,7228); // Taskin Ahmed
-		array_push($output,7138); // Tamim Iqbal
-		array_push($output,2747); // Sabbir Rahman
-		array_push($output,7584); // Nasir Hossain
-		array_push($output,7594); // Mushfiqur Rahim
-		array_push($output,2919); // Mustafizur Rahman
-		array_push($output,7215); // Mahmudullah
-		array_push($output,7112); // Shakib Al Hasan
-		array_push($output,7295); // Al-Amin Hossain
-		array_push($output,7295); // Saqlain Sajib
-		array_push($output,7295); // Shuvagata Hom
+		array_push($output,2390); // Mashrafe Mortaza
+		array_push($output,7575); // Abu Hider
+		array_push($output,7365); // Arafat Sunny
+		array_push($output,7366); // Mohammad Mithun
+		array_push($output,7572); // Nurul Hasan
+		array_push($output,7459); // Soumya Sarkar
+		array_push($output,7399); // Taskin Ahmed
+		array_push($output,6781); // Tamim Iqbal
+		array_push($output,7367); // Sabbir Rahman
+		array_push($output,7183); // Nasir Hossain
+		array_push($output,2565); // Mushfiqur Rahim
+		array_push($output,7472); // Mustafizur Rahman
+		array_push($output,6811); // Mahmudullah
+		array_push($output,6740); // Shakib Al Hasan
+		array_push($output,2856); // Al-Amin Hossain
+		//array_push($output,7295); // Saqlain Sajib // not found
+		array_push($output,7185); // Shuvagata Hom
 		
 		}
 		
@@ -262,43 +262,68 @@ class Cc extends CI_Controller {
 			
 		// srilanka
 		
-		array_push($output,6395); // Angelo Mathews
-		array_push($output,7074); // Dinesh Chandimal
-		array_push($output,6977); // Tillakaratne Dilshan
-		array_push($output,7149); // Shehan Jayasuriya
-		array_push($output,7267); // Milinda Siriwardana
-		array_push($output,2846); // Dasun Shanaka
-		array_push($output,7228); // Chamara Kapugedera
-		array_push($output,7138); // Nuwan Kulasekara
-		array_push($output,2747); // Dushmantha Chameera
-		array_push($output,7584); // Thisara Perera
-		array_push($output,7594); // Sachithra Senanayake
-		array_push($output,2919); // Rangana Herath
-		array_push($output,7215); // Suranga Lakmal
-		array_push($output,7112); // Lahiru Thirimanne
-		array_push($output,7295); // Jeffrey Vandersay		
+		array_push($output,6962); // Angelo Mathews
+		array_push($output,7093); // Dinesh Chandimal
+		array_push($output,2283); // Tillakaratne Dilshan
+		array_push($output,7528); // Shehan Jayasuriya
+		array_push($output,7504); // Milinda Siriwardana
+		array_push($output,7529); // Dasun Shanaka
+		array_push($output,2586); // Chamara Kapugedera
+		array_push($output,6513); // Nuwan Kulasekara
+		array_push($output,7467); // Dushmantha Chameera
+		array_push($output,7063); // Thisara Perera
+		array_push($output,7226); // Sachithra Senanayake //double entry
+		array_push($output,2271); // Rangana Herath
+		array_push($output,7062); // Suranga Lakmal
+		array_push($output,7065); // Lahiru Thirimanne
+		array_push($output,7526); // Jeffrey Vandersay
+		array_push($output,7289); // Kusal Perera
+		
 		}
 		
 		if($teamId==9){
 			
 		// england
 		
-		array_push($output,6395); // Eoin Morgan
-		array_push($output,7074); // Sam Billings
-		array_push($output,6977); // Liam Dawson
-		array_push($output,7149); // Alex Hales
-		array_push($output,7267); // Adil Rashid
-		array_push($output,2846); // Jason Roy
-		array_push($output,7228); // Reece Topley
-		array_push($output,7138); // David Willey
-		array_push($output,2747); // Moeen Ali
-		array_push($output,7584); // Jos Buttler
-		array_push($output,7594); // Chris Jordan
-		array_push($output,2919); // Joe Root
-		array_push($output,7215); // Ben Stokes
-		array_push($output,7112); // James Vince
-		array_push($output,7295); // Liam Plunkett
+		array_push($output,6731); // Eoin Morgan
+		array_push($output,7481); // Sam Billings
+		//array_push($output,6977); // Liam Dawson //not found
+		array_push($output,7190); // Alex Hales
+		array_push($output,7015); // Adil Rashid
+		array_push($output,7421); // Jason Roy
+		array_push($output,7533); // Reece Topley
+		array_push($output,7475); // David Willey
+		array_push($output,7370); // Moeen Ali
+		array_push($output,7191); // Jos Buttler
+		array_push($output,7338); // Chris Jordan
+		array_push($output,2821); // Joe Root
+		array_push($output,7189); // Ben Stokes
+		array_push($output,7473); // James Vince
+		array_push($output,2587); // Liam Plunkett
 		
+		}
+		
+		if($teamId==10){
+		
+		//zimbabwe	
+			
+		array_push($output,2377); // Hamilton Masakadza
+		
+		
+		}
+		
+		if($teamId==11){
+		
+		//uae
+			
+		array_push($output,2377); // Mohammad Shahzad
+		}
+		
+		if($teamId==12){
+		
+		//netherlands
+			
+		array_push($output,7195); // Stephan Myburgh
 		}
 		
 		
