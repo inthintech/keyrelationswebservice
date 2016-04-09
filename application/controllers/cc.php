@@ -142,7 +142,9 @@ class Cc extends CI_Controller {
 		array_push($output,2919); // Peter Nevill
 		array_push($output,7215); // Mitchell Marsh
 		array_push($output,7112); // Josh Hazlewood
+		array_push($output,7139); // Mitchell Starc
 		array_push($output,7295); // Nathan Coulter-Nile
+		
 		}
 		
 		if($teamId==3){
@@ -309,6 +311,7 @@ class Cc extends CI_Controller {
 			
 		array_push($output,2377); // Hamilton Masakadza
 		array_push($output,6982); // Malcolm Waller
+		array_push($output,2548); // Graeme Cremer
 		
 		
 		}
@@ -322,6 +325,10 @@ class Cc extends CI_Controller {
 		array_push($output,7116); // Wesley Barresi
 		array_push($output,6724); // Peter Borren
 		array_push($output,7003); // Asghar Stanikzai
+		array_push($output,7001); // Mohammad Nabi
+		array_push($output,7542); // Rashid Khan
+		array_push($output,7233); // Hamza Hotak
+		array_push($output,7179); // Dawlat Zadran
 		
 		}
 		
@@ -330,6 +337,8 @@ class Cc extends CI_Controller {
 		//netherlands
 			
 		array_push($output,7195); // Stephan Myburgh
+		array_push($output,7245); // Timm van der Gugten
+		array_push($output,6803); // Mudassar Bukhari
 		}
 		
 		if($teamId==12){
@@ -345,7 +354,19 @@ class Cc extends CI_Controller {
 		//ireland
 			
 		array_push($output,6927); // Paul Stirling
+		array_push($output,7066); // George Dockrell
 		}
+		
+		if($teamId==14){
+		
+		//uae
+			
+		array_push($output,7405); // Mohammad Naveed
+		
+		}
+		
+		
+		
 		
 		if(isset($key)){
 		if($key=='49b35ae23cb2dce9b78b40d209149e28'){
@@ -399,6 +420,91 @@ class Cc extends CI_Controller {
 		echo 'No key is found.';
 	}
 	}
+	
+	public function userRegistration($accessToken)
+	{
+		$this->output->set_content_type('application/json');
+		$output = array();
+		
+		$service_url = 'https://graph.facebook.com/v2.4/me?access_token='.$accessToken.'&fields=id,name';
+
+		//make the api call and store the response
+		$curl = curl_init($service_url);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		$curl_response = curl_exec($curl);
+		curl_close($curl);
+
+		//if the api call is failed
+		if ($curl_response === false) {
+		    //$info = curl_getinfo($curl);
+		    //curl_close($curl);
+		    //die('error occured during curl exec. Additioanl info: ' . var_export($info));
+			$this->output->set_status_header('503');
+			echo json_encode(array('error'=>'unable to reach facebook server'));
+		    exit;
+
+		}
+		$decoded = json_decode($curl_response);
+		
+		//if the api call is success but error from facebook
+		if (isset($decoded->error)) {
+			$this->output->set_status_header('503');
+			echo json_encode(array('error'=>'error returned by facebook server'));
+		    exit;
+		}
+
+		$fbId = $decoded->id;
+		$name = $decoded->name;
+		$userId = 0;
+		
+		$query = $this->db->query("select user_id from cc_user where fb_id=".$fbId);
+		
+		if($query->num_rows()<>1){
+			$query = $this->db->query("delete from cc_user where fb_id=".$fbId);
+			$query = $this->db->query("insert into cc_user(fb_id,user_fullname,user_teamname,crte_ts) values(".$this->db->escape($fbId).",".$this->db->escape($name).",'My Team',CURRENT_TIMESTAMP)");
+		}
+        
+		$query = $this->db->query("select user_id from cc_user where fb_id=".$fbId);
+		
+		foreach($query->result() as $row){
+			$userId = $row->user_id;
+		}
+		
+		$query = $this->db->query("select user_id from cc_userplayer where user_id=".$userId);
+		
+		if($userId<>0 && $query->num_rows()<>11){
+			$query = $this->db->query("delete from cc_userplayer where user_id=".$userId);
+			$query = $this->db->query("insert into cc_userplayer(user_id,player_id) values(".$userId.",2960)"); //Jason Roy
+			$query = $this->db->query("insert into cc_userplayer(user_id,player_id) values(".$userId.",3917)"); //Quinton de Kock
+			$query = $this->db->query("insert into cc_userplayer(user_id,player_id) values(".$userId.",1793)"); //Virat Kohli
+			$query = $this->db->query("insert into cc_userplayer(user_id,player_id) values(".$userId.",2944)"); //Joe Root
+			$query = $this->db->query("insert into cc_userplayer(user_id,player_id) values(".$userId.",548)"); //Jos Buttler
+			$query = $this->db->query("insert into cc_userplayer(user_id,player_id) values(".$userId.",3707)"); //Shane Watson
+			$query = $this->db->query("insert into cc_userplayer(user_id,player_id) values(".$userId.",2971)"); //Andre Russell
+			$query = $this->db->query("insert into cc_userplayer(user_id,player_id) values(".$userId.",3031)"); //Mitchell Santner
+			$query = $this->db->query("insert into cc_userplayer(user_id,player_id) values(".$userId.",3782)"); //David Willey
+			$query = $this->db->query("insert into cc_userplayer(user_id,player_id) values(".$userId.",247)"); //Samuel Badree
+			$query = $this->db->query("insert into cc_userplayer(user_id,player_id) values(".$userId.",2437)"); //Ashish Nehra
+		}
+		
+		$query = $this->db->query("select user_id from cc_user where fb_id=".$fbId);
+		
+		$userCnt = $query->num_rows();
+		
+		$query = $this->db->query("select user_id from cc_userplayer where user_id=".$userId);
+		
+		$playerCnt = $query->num_rows();
+		
+		if($userCnt==1&&$playerCnt==11){
+			echo json_encode(array('success'=>'user is successfully registered'));
+		}
+		else{
+			$this->output->set_status_header('503');
+			echo json_encode(array('error'=>'user registration failed'));
+		}
+	}
+	
+	
 	/*
 	// do not use language parameters since the cast and director are aplicable for all language.
 	public function addMovie($fbId,$movieId)
