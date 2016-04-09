@@ -440,7 +440,10 @@ class Cc extends CI_Controller {
 		    //curl_close($curl);
 		    //die('error occured during curl exec. Additioanl info: ' . var_export($info));
 			$this->output->set_status_header('503');
-			echo json_encode(array('error'=>'unable to reach facebook server'));
+			//echo json_encode(array('error'=>'unable to reach facebook server'));
+			array_push($output,array(
+					'error'=>'unable to reach facebook server'
+				));
 		    exit;
 
 		}
@@ -449,7 +452,10 @@ class Cc extends CI_Controller {
 		//if the api call is success but error from facebook
 		if (isset($decoded->error)) {
 			$this->output->set_status_header('503');
-			echo json_encode(array('error'=>'error returned by facebook server'));
+			//echo json_encode(array('error'=>'error returned by facebook server'));
+			array_push($output,array(
+					'error'=>'error returned by facebook server'
+				));
 		    exit;
 		}
 
@@ -496,12 +502,20 @@ class Cc extends CI_Controller {
 		$playerCnt = $query->num_rows();
 		
 		if($userCnt==1&&$playerCnt==11){
-			echo json_encode(array('success'=>'user is successfully registered'));
+			//echo json_encode(array('success'=>'user is successfully registered'));
+			array_push($output,array(
+					'success'=>'user is successfully registered'
+				));
 		}
 		else{
 			$this->output->set_status_header('503');
-			echo json_encode(array('error'=>'user registration failed'));
+			//echo json_encode(array('error'=>'user registration failed'));
+			array_push($output,array(
+					'error'=>'user registration failed'
+				));
 		}
+		
+		$this->output->set_output(json_encode($output));
 	}
 	
 	
